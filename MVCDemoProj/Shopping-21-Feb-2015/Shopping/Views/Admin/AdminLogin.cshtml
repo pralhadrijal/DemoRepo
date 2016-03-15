@@ -1,0 +1,65 @@
+﻿@model Shopping.Models.UserInfo
+@{
+    ViewBag.Title = "AdminLogin";
+    Layout = null;
+}
+<link href="@Url.Content("~/Content/css/bootstrap.min.css")" rel="stylesheet"  />
+<title>Admin Login</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<!-----start-main---->
+<div class="main">
+    <div class="login-form">        
+        @using (Html.BeginForm("AdminLogin", "Admin", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true)
+            @Html.AntiForgeryToken()            
+            <div class="container" style="min-height: 300px; width: 350px;border-radius:5px;margin-top:100px">                
+                <span style="margin: 10px;"><strong style="font-size:small" class="label label-info">Administrator Login !!!</strong></span>
+                <div style="padding: 10px 10px 10px 10px;margin:10px;border-radius:5px; background-color:#edf1f2">
+                    <div class="row" style="text-align: center">
+                        <div class="form-group col-md-12">
+                            <img src="~/Content/Images/user.png" alt="" />
+                        </div>
+                    </div>
+                    @if (Session["LoginFailed"] != null)
+                    {
+                        <div class="row" style="text-align: center">
+                            <div class="form-group col-md-12">
+                                <div class="label label-danger">Opps !!! @Session["LoginFailed"]</div>                                
+                            </div>
+                        </div>
+                        Session["LoginFailed"] = null;
+                    }
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", Placeholder = "Email", Required = "Please Provide Username" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", Placeholder = "Password", Required = "Please Provide Password" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <a href="#" style="text-decoration:none;color:blue">forget password ?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <input type="submit" class="form-control btn btn-danger" value="Login" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <!--//End-login-form-->
+
+</div>
+<!-----//end-main---->
+
+

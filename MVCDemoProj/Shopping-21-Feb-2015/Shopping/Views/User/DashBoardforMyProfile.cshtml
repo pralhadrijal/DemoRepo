@@ -1,0 +1,91 @@
+﻿@model Shopping.Models.UserInfo
+@{
+    ViewBag.Title = "DashBoardforMyProfile";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<div class="col-md-9 padding-right font-ambleregular-black">
+    <div class="panel panel-primary" style="background-color:white">
+        <div class="panel-heading bold">
+            <span class="glyphicon glyphicon-user"></span>My Profile
+                 <p class="pull-right" style="font-weight: normal;"><a href="/User/ChangePassword" class="color-white"><span class="glyphicon glyphicon-cog"></span>&nbsp;Change Password</a></p>
+        </div>
+        <div class="panel-body">
+            <p style="text-align: center; font-size: large; font-family: Arial sans-serif; font-stretch: wider; color: #f20909">Username : @Html.DisplayFor(model => model.UserName)</p>
+            <fieldset>
+                <legend><span style="font-size: large; color: #808080">Personal Information</span>                    
+                    <a class="pull-right btn btn-primary btn-sm" href="/User/ChangePersonalInfo/@Session["LoggedUserId"]">Edit</a>
+                </legend>
+                <table class="table table-condensed" style="font-size:small">
+                    <tr>
+                        <td class="col-lg-3">@Html.Label("Full Name:")</td>
+                        <td class="col-lg-9">@Html.DisplayFor(model => model.FullName)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-lg-3">@Html.Label("Gender:")</td>
+                        <td class="col-lg-9">
+                            @if (Model.Gender=="M")
+                            {
+                                <span>Male</span>
+                            }
+                            else if(Model.Gender=="F")
+                            {
+                                <span>Female</span>
+                            }
+                            else
+                            {
+                                <span>undefine</span>
+                            }
+                        </td>
+                    </tr>
+
+                     <tr>
+                        <td class="col-lg-3">@Html.Label("Zone:")</td>
+                        <td class="col-lg-9">@Html.DisplayFor(model => model.Zone)</td>
+                    </tr>
+                     <tr>
+                        <td class="col-lg-3">@Html.Label("City:")</td>
+                        <td class="col-lg-9">@Html.DisplayFor(model => model.City)</td>
+                    </tr>
+                    <tr>
+                        <td class="col-lg-3">@Html.Label("Local Address:")</td>
+                        <td class="col-lg-9">@Html.DisplayFor(model => model.LocalAddress)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-lg-3">@Html.Label("Member Since:")</td>
+                        <td class="col-lg-9">@Html.DisplayFor(model => model.JoinDate)</td>
+                    </tr>
+                </table>
+            </fieldset>
+            <br />
+            <br />
+            <fieldset>
+                <legend><span style="font-size: large; color: #808080">Contact Information</span>
+                    <a class="pull-right btn btn-primary btn-sm" href="/User/ChangeContactInfo/@Session["LoggedUserId"]">Edit</a>
+                </legend>
+                <table class="table table-condensed" style="font-size:small">
+                    <tr>
+                        <td class="col-lg-3">@Html.Label("Email Address:")</td>
+                        <td class="col-lg-9">@Html.DisplayFor(model => model.Email)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-lg-3">@Html.Label("Contact Number:")</td>
+                        <td class="col-lg-9">@Html.DisplayFor(model => model.FirstPhone)
+                            @if (Model.SecondPhone != null)
+                            {
+                                <span>/ @Model.SecondPhone</span> 
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <br />
+            <div style="font-size: small; color: dodgerblue">
+                <span class="glyphicon glyphicon-info-sign">&nbsp;</span>We hope your profile can be used to connect the buyer with you.So, please fulfil your profile with valid informations.
+            </div>
+        </div>
+    </div>
+</div>

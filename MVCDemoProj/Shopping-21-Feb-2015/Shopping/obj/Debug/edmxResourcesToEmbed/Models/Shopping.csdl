@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectDbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ProjectDbEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="ProjectDbModel.Category" />
+    <EntitySet Name="Comments" EntityType="ProjectDbModel.Comment" />
+    <EntitySet Name="Contacts" EntityType="ProjectDbModel.Contact" />
+    <EntitySet Name="FeatureAds" EntityType="ProjectDbModel.FeatureAd" />
+    <EntitySet Name="Feedbacks" EntityType="ProjectDbModel.Feedback" />
+    <EntitySet Name="Notices" EntityType="ProjectDbModel.Notice" />
+    <EntitySet Name="OurStores" EntityType="ProjectDbModel.OurStore" />
+    <EntitySet Name="PostAds" EntityType="ProjectDbModel.PostAd" />
+    <EntitySet Name="Products" EntityType="ProjectDbModel.Product" />
+    <EntitySet Name="Spams" EntityType="ProjectDbModel.Spam" />
+    <EntitySet Name="UserInfoes" EntityType="ProjectDbModel.UserInfo" />
+    <EntitySet Name="WishLists" EntityType="ProjectDbModel.WishList" />
+    <AssociationSet Name="FK_PostAd_Category" Association="ProjectDbModel.FK_PostAd_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="PostAd" EntitySet="PostAds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Category" Association="ProjectDbModel.FK_Product_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_PostAd" Association="ProjectDbModel.FK_Comment_PostAd">
+      <End Role="PostAd" EntitySet="PostAds" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_UserInfo" Association="ProjectDbModel.FK_Comment_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contact_UserInfo" Association="ProjectDbModel.FK_Contact_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="Contact" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FeatureAd_PostAd" Association="ProjectDbModel.FK_FeatureAd_PostAd">
+      <End Role="PostAd" EntitySet="PostAds" />
+      <End Role="FeatureAd" EntitySet="FeatureAds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FeatureAd_UserInfo" Association="ProjectDbModel.FK_FeatureAd_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="FeatureAd" EntitySet="FeatureAds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostAd_Product" Association="ProjectDbModel.FK_PostAd_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="PostAd" EntitySet="PostAds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostAd_UserInfo" Association="ProjectDbModel.FK_PostAd_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="PostAd" EntitySet="PostAds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Spam_PostAd" Association="ProjectDbModel.FK_Spam_PostAd">
+      <End Role="PostAd" EntitySet="PostAds" />
+      <End Role="Spam" EntitySet="Spams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WishList_PostAd" Association="ProjectDbModel.FK_WishList_PostAd">
+      <End Role="PostAd" EntitySet="PostAds" />
+      <End Role="WishList" EntitySet="WishLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Spam_UserInfo" Association="ProjectDbModel.FK_Spam_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="Spam" EntitySet="Spams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WishList_UserInfo" Association="ProjectDbModel.FK_WishList_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="WishList" EntitySet="WishLists" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="IsHide" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="PostAds" Relationship="ProjectDbModel.FK_PostAd_Category" FromRole="Category" ToRole="PostAd" />
+    <NavigationProperty Name="Products" Relationship="ProjectDbModel.FK_Product_Category" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="PostId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="At" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsHide" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="PostAd" Relationship="ProjectDbModel.FK_Comment_PostAd" FromRole="Comment" ToRole="PostAd" />
+    <NavigationProperty Name="UserInfo" Relationship="ProjectDbModel.FK_Comment_UserInfo" FromRole="Comment" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="At" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Proof" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="UserInfo" Relationship="ProjectDbModel.FK_Contact_UserInfo" FromRole="Contact" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="FeatureAd">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="PostId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PostAd" Relationship="ProjectDbModel.FK_FeatureAd_PostAd" FromRole="FeatureAd" ToRole="PostAd" />
+    <NavigationProperty Name="UserInfo" Relationship="ProjectDbModel.FK_FeatureAd_UserInfo" FromRole="FeatureAd" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="Feedback">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="At" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Notice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="OurStore">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="SoldBy" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="PostedDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Url" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Condition" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="PriceNegotiable" Type="Boolean" Nullable="false" />
+    <Property Name="UsedFor" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Warrenty" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Discount" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="IsHide" Type="Boolean" Nullable="false" />
+    <Property Name="Image1" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Image2" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Image3" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="PostAd">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="PostedDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Url" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Condition" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="PriceNegotiable" Type="Boolean" Nullable="false" />
+    <Property Name="UsedFor" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Warrenty" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="IsHide" Type="Boolean" Nullable="false" />
+    <Property Name="Image1" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Image2" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Image3" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="IsFeatured" Type="Boolean" Nullable="false" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Category" Relationship="ProjectDbModel.FK_PostAd_Category" FromRole="PostAd" ToRole="Category" />
+    <NavigationProperty Name="Comments" Relationship="ProjectDbModel.FK_Comment_PostAd" FromRole="PostAd" ToRole="Comment" />
+    <NavigationProperty Name="FeatureAds" Relationship="ProjectDbModel.FK_FeatureAd_PostAd" FromRole="PostAd" ToRole="FeatureAd" />
+    <NavigationProperty Name="Product" Relationship="ProjectDbModel.FK_PostAd_Product" FromRole="PostAd" ToRole="Product" />
+    <NavigationProperty Name="UserInfo" Relationship="ProjectDbModel.FK_PostAd_UserInfo" FromRole="PostAd" ToRole="UserInfo" />
+    <NavigationProperty Name="Spams" Relationship="ProjectDbModel.FK_Spam_PostAd" FromRole="PostAd" ToRole="Spam" />
+    <NavigationProperty Name="WishLists" Relationship="ProjectDbModel.FK_WishList_PostAd" FromRole="PostAd" ToRole="WishList" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="IsHide" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="ProjectDbModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
+    <NavigationProperty Name="PostAds" Relationship="ProjectDbModel.FK_PostAd_Product" FromRole="Product" ToRole="PostAd" />
+  </EntityType>
+  <EntityType Name="Spam">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="PostId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PostAd" Relationship="ProjectDbModel.FK_Spam_PostAd" FromRole="Spam" ToRole="PostAd" />
+    <NavigationProperty Name="UserInfo" Relationship="ProjectDbModel.FK_Spam_UserInfo" FromRole="Spam" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+    <Property Name="Zone" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="LocalAddress" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="FirstPhone" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="SecondPhone" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="JoinDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="UserRole" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="ProjectDbModel.FK_Comment_UserInfo" FromRole="UserInfo" ToRole="Comment" />
+    <NavigationProperty Name="Contacts" Relationship="ProjectDbModel.FK_Contact_UserInfo" FromRole="UserInfo" ToRole="Contact" />
+    <NavigationProperty Name="FeatureAds" Relationship="ProjectDbModel.FK_FeatureAd_UserInfo" FromRole="UserInfo" ToRole="FeatureAd" />
+    <NavigationProperty Name="PostAds" Relationship="ProjectDbModel.FK_PostAd_UserInfo" FromRole="UserInfo" ToRole="PostAd" />
+    <NavigationProperty Name="Spams" Relationship="ProjectDbModel.FK_Spam_UserInfo" FromRole="UserInfo" ToRole="Spam" />
+    <NavigationProperty Name="WishLists" Relationship="ProjectDbModel.FK_WishList_UserInfo" FromRole="UserInfo" ToRole="WishList" />
+  </EntityType>
+  <EntityType Name="WishList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="PostId" Type="Int32" Nullable="false" />
+    <Property Name="At" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsHide" Type="Boolean" Nullable="false" />
+    <Property Name="Remark" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="PostAd" Relationship="ProjectDbModel.FK_WishList_PostAd" FromRole="WishList" ToRole="PostAd" />
+    <NavigationProperty Name="UserInfo" Relationship="ProjectDbModel.FK_WishList_UserInfo" FromRole="WishList" ToRole="UserInfo" />
+  </EntityType>
+  <Association Name="FK_PostAd_Category">
+    <End Role="Category" Type="ProjectDbModel.Category" Multiplicity="1" />
+    <End Role="PostAd" Type="ProjectDbModel.PostAd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostAd">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Category">
+    <End Role="Category" Type="ProjectDbModel.Category" Multiplicity="1" />
+    <End Role="Product" Type="ProjectDbModel.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_PostAd">
+    <End Role="PostAd" Type="ProjectDbModel.PostAd" Multiplicity="1" />
+    <End Role="Comment" Type="ProjectDbModel.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PostAd">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_UserInfo">
+    <End Role="UserInfo" Type="ProjectDbModel.UserInfo" Multiplicity="1" />
+    <End Role="Comment" Type="ProjectDbModel.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contact_UserInfo">
+    <End Role="UserInfo" Type="ProjectDbModel.UserInfo" Multiplicity="1" />
+    <End Role="Contact" Type="ProjectDbModel.Contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Contact">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FeatureAd_PostAd">
+    <End Role="PostAd" Type="ProjectDbModel.PostAd" Multiplicity="1" />
+    <End Role="FeatureAd" Type="ProjectDbModel.FeatureAd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PostAd">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FeatureAd">
+        <PropertyRef Name="PostId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FeatureAd_UserInfo">
+    <End Role="UserInfo" Type="ProjectDbModel.UserInfo" Multiplicity="1" />
+    <End Role="FeatureAd" Type="ProjectDbModel.FeatureAd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FeatureAd">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostAd_Product">
+    <End Role="Product" Type="ProjectDbModel.Product" Multiplicity="1" />
+    <End Role="PostAd" Type="ProjectDbModel.PostAd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostAd">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostAd_UserInfo">
+    <End Role="UserInfo" Type="ProjectDbModel.UserInfo" Multiplicity="1" />
+    <End Role="PostAd" Type="ProjectDbModel.PostAd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostAd">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Spam_PostAd">
+    <End Role="PostAd" Type="ProjectDbModel.PostAd" Multiplicity="1" />
+    <End Role="Spam" Type="ProjectDbModel.Spam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PostAd">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Spam">
+        <PropertyRef Name="PostId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WishList_PostAd">
+    <End Role="PostAd" Type="ProjectDbModel.PostAd" Multiplicity="1" />
+    <End Role="WishList" Type="ProjectDbModel.WishList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PostAd">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WishList">
+        <PropertyRef Name="PostId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Spam_UserInfo">
+    <End Role="UserInfo" Type="ProjectDbModel.UserInfo" Multiplicity="1" />
+    <End Role="Spam" Type="ProjectDbModel.Spam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Spam">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WishList_UserInfo">
+    <End Role="UserInfo" Type="ProjectDbModel.UserInfo" Multiplicity="1" />
+    <End Role="WishList" Type="ProjectDbModel.WishList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WishList">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

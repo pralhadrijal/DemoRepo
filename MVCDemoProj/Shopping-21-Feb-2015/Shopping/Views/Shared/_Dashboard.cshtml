@@ -1,0 +1,129 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_Dashboard</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="@Url.Content("../../Content/CSS/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("../../Content/CSS/Style.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("../../Content/CSS/nivo-slider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("../../Content/default/default.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/css/Customcss.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/confirmstyles.css")" rel="stylesheet" />
+
+    <script src="@Url.Content("~/Content/js/jquery-1.7.2.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.20.min.js")"></script>
+    <script src="@Url.Content("../../Content/Js/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("../../Content/Js/jquery.nivo.slider.pack.js")" type="text/javascript"></script>
+    <script src="Content/Js/js/jquery.sudoSlider.min.js">
+    <script src="@Url.Content("Content/Js/js/jquery.sudoSlider.min.js")"></script>
+    <script type="text/javascript" src="Content/Js/js/jssor.js"></script>
+    <script type="text/javascript" src="Content/Js/js/jssor.slider.js"></script>
+    <script src="@Url.Content("~/Scripts/ jQuery.unobtrusive - ajax.js")"></script>
+    <script src="@Url.Content("~/Content/js/jquery.reveal.js")"></script>
+    <script src="@Url.Content("~/Content/js/bootbox.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/notifys.js")"></script>
+
+
+
+</head>
+<body>
+    <div class="row">
+        <div class="header" style="background-color: whitesmoke; padding-bottom: 10px; border-bottom: 1px solid wheat;">
+            <div class="container">
+                <div class="account_desc">
+                    <div style="margin-left: 90px; margin-top: 10px;">
+                        <ul style="font: Sansation;">
+                            <li><a class="HeaderNav" href="/Home/Index">Home</a></li>
+                            <li><a class="HeaderNav" href="/User/DashboardforMyHome">DashBoard</a></li>
+                            <li><a class="HeaderNav" href="#">Contact Us</a></li>
+                            <li><a class="HeaderNav" href="/User/LogOut">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="logo">
+                        <div class="container">
+                            <a href="/Home/Index">
+                                <img src="~/content/images/logo.png" alt="logo" class="pull-left col-md-3 img-responsive"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--section-->
+    <div class="row" style="margin-top: 15px;">
+        <div class="container padding-left padding-right">
+            @if (TempData["AllImageNull"] != null)
+            {
+                <div class="alert alert-info" role="alert">
+                    <div style="font-synthesis: weight; text-align: center">
+                        <span style="color: red; font-size: large">Ads Posting Failed..!!!</span>
+                        <span style="color: green">@TempData["AllImageNull"]</span>
+                    </div>
+                </div>                
+            }
+            @if (TempData["FileExtensionError"] != null)
+            {
+                <div class="alert alert-info" role="alert">
+                    <div style="font-synthesis: weight; text-align: center">
+                        <span style="color: red; font-size: large">Ads Posting Failed..!!!</span>
+                        <span style="color: green">@TempData["FileExtensionError"]</span>
+                    </div>
+                </div>
+            }
+            @if (TempData["FileSizeError"] != null)
+            {
+                <div class="alert alert-info" role="alert">
+                    <div style="font-synthesis: weight; text-align: center">
+                        <span style="color: red; font-size: large">Ads Posting Failed..!!!</span>
+                        <span style="color: green">@TempData["FileSizeError"]</span>
+                    </div>
+                </div>
+            }
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    <div style="font-synthesis: weight; text-align: center">
+                        <span style="color: orangered; font-size: large;">Congratulations !!!</span>
+                        <span style="color: green">@TempData["SuccessMessage"]</span>
+                    </div>
+                </div>
+            }
+            <!--left column-->
+            <div class="col-md-3 padding-left">
+                <div class="panel panel-primary">
+                    <div class="panel-heading bold"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;My DashBoard</div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li style="background-color:#f8f3f3;border-radius:5px;"><a href="/User/DashBoardforMyHome" class="font"><span class="glyphicon glyphicon-home"></span>&nbsp;My Home</a></li>
+                            <li style="background-color:#f8f3f3;border-radius:5px;"><a href="/User/DashBoardforMyProfile/@Session["LoggedUserId"]" class="font"><span class="glyphicon glyphicon-user"></span>&nbsp;My Profile</a></li>
+                            <li style="background-color:#f8f3f3;border-radius:5px;"><a href="/User/DashBoardforNewPost" class="font"><span class="glyphicon glyphicon-new-window"></span>&nbsp;Post New Ads.</a></li>
+                            <li style="background-color:#f8f3f3;border-radius:5px;"><a href="/User/DashBoardforMyPost" class="font"><span class="glyphicon glyphicon-book"></span>&nbsp;My Posts</a></li>
+                            <li style="background-color:#f8f3f3;border-radius:5px;"><a href="/User/DashBoardforWishList" class="font"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Wish List</a></li>
+                            <li style="background-color:#f8f3f3;border-radius:5px;"><a href="/User/DashBoardforNeedHelp" class="font"><span class="glyphicon glyphicon-bell"></span>&nbsp;Need Help ?</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--Right column-->
+            @RenderBody()
+        </div>
+    </div>
+    <!--section-->
+    <div class="row">
+        <div class="footer">
+            <div class="container">
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

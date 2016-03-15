@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c346a70cddd242669823a15253f4d5e2" Name="Diagram1">
+        <EntityTypeShape EntityType="ProjectDbModel.Category" Width="1.5" PointX="3.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDbModel.Comment" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDbModel.Contact" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDbModel.FeatureAd" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDbModel.Feedback" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDbModel.Notice" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDbModel.OurStore" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDbModel.PostAd" Width="1.5" PointX="6" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDbModel.Product" Width="1.5" PointX="3.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDbModel.Spam" Width="1.5" PointX="8.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDbModel.UserInfo" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDbModel.WishList" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="ProjectDbModel.FK_PostAd_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDbModel.FK_Product_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDbModel.FK_Comment_PostAd" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDbModel.FK_Comment_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDbModel.FK_Contact_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDbModel.FK_FeatureAd_PostAd" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDbModel.FK_FeatureAd_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDbModel.FK_PostAd_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDbModel.FK_PostAd_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDbModel.FK_Spam_PostAd" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDbModel.FK_WishList_PostAd" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDbModel.FK_Spam_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDbModel.FK_WishList_UserInfo" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

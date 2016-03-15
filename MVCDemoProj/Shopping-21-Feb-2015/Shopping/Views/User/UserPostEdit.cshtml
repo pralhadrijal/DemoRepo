@@ -1,0 +1,156 @@
+﻿@model Shopping.Models.PostAd
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    string value = "Not Available";
+}
+<div class="col-md-9 padding-right">
+    <div class="panel panel-primary">
+        <div class="panel-heading bold">
+            <span class="glyphicon glyphicon-book"></span>&nbsp;My Posts
+        </div>
+        <div class="panel-body">
+            <div>
+                <div>
+                    <span class="label label-info" style="font-size: small">Ads. on Edit Mode</span>
+                </div>
+                @using (Html.BeginForm("UserPostEdit", "User", FormMethod.Post))
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.AntiForgeryToken()
+                    <fieldset>
+                        <legend></legend>
+                        <table class="table table-condensed col-sm-12" style="width:93%">
+                            <tr>
+                                <td class="col-sm-3">
+                                    <span>Price</span>
+                                </td>
+                                <td class="col-sm-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Rs.</span>
+                                        @Html.ValidationMessageFor(model => model.Price)
+                                        @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">
+                                    <span>Condition</span>
+                                </td>
+                                <td class="col-sm-9">
+                                    @Html.ValidationMessageFor(model => model.Condition)
+                                    @Html.TextBoxFor(model => model.Condition, new { @class = "form-control" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">
+                                    <span>Warrenty</span>
+                                </td>
+                                <td class="col-sm-9">
+                                    @Html.ValidationMessageFor(model => model.Warrenty)
+                                    @Html.TextBoxFor(model => model.Warrenty, new { @class = "form-control" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">
+                                    <span>Used for</span>
+                                </td>
+                                <td class="col-sm-9">
+                                    @Html.ValidationMessageFor(model => model.UsedFor)
+                                    @Html.TextBoxFor(model => model.UsedFor, new { @class = "form-control" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">
+                                    <span>Url for Detail</span>
+                                </td>
+                                <td class="col-sm-9">
+                                    @Html.ValidationMessageFor(model => model.Url)
+                                    @Html.TextBoxFor(model => model.Url, new { @class = "form-control" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">
+                                    <span>Price Negotiable</span>
+                                </td>
+                                <td class="col-sm-9">
+                                    @Html.RadioButtonFor(x => x.PriceNegotiable, "true", new { id = "Yes" })
+                                    @Html.Label("Yes", "Allow", new { @style = "font-size:12px; color:grey;" })
+                                    &nbsp;&nbsp;
+                            @Html.RadioButtonFor(x => x.PriceNegotiable, "false", new { id = "No" })
+                                    @Html.Label("No", "Unallow", new { @style = "font-size:12px; color:grey;" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">
+                                    <span>Description</span>
+                                </td>
+                                <td class="col-sm-9">
+                                    @Html.ValidationMessageFor(model => model.Description)
+                                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="label label-info" style="font-size: small">Product Images on Edit Mode</div>                        
+
+                        <div>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td class="col-sm-3">
+                                        <img src="@Model.Image1"class="img-rounded" width="150" height="170" alt="Photo Not Available" style="border:1px solid black;background-color:wheat" /></td>
+                                    <td class="col-sm-3">
+                                        <img src="@Model.Image2"class="img-rounded" width="150" height="170" alt="Photo Not Available" style="border:1px solid black;background-color:wheat" /></td>
+                                    <td class="col-sm-3">
+                                        <img src="@Model.Image3"class="img-rounded" width="150" height="170" alt="Photo Not Available" style="border:1px solid black;background-color:wheat" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-3">
+                                        <input type="file" name="file1" value="image1" /></td>
+                                    <td class="col-sm-3">
+                                        <input type="file" name="file2" value="image2" /></td>
+                                    <td class="col-sm-3">
+                                        <input type="file" name="file3" value="image3" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="panel-footer" style="width:93%;height:50px;">
+                            <input class="btn btn-success btn-sm pull-right" type="submit" value="Save Changes" />
+                        </div>
+                    </fieldset>
+                }
+            </div>
+            <div style="margin-top:20px">
+                <table class="table table-condensed">
+                    <tr>
+                        <td class="label label-danger col-sm-2" colspan="2" style="font-size: small">Uneditable fields</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-3">Title</td>
+                        <td class="col-sm-9">
+                            @Html.DisplayFor(model => model.Title)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-3">category</td>
+                        <td class="col-sm-9">
+                            @Html.DisplayFor(model => model.Category.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-3">product</td>
+                        <td class="col-sm-9">
+                            @Html.DisplayFor(model => model.Product.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-3">posted Date</td>
+                        <td class="col-sm-9">
+                            @Html.DisplayFor(model => model.PostedDate)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

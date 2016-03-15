@@ -1,0 +1,194 @@
+﻿@model IEnumerable<Shopping.Models.PostAd>
+@{
+    ViewBag.Title = "DashBoardforMyPost";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    int TotalPost = Convert.ToInt32(ViewData["TotalPosts"]);
+}
+<div class="col-md-9 padding-right font-ambleregular-black">
+    <div class="panel panel-primary">
+        <div class="panel-heading bold"><span class=" glyphicon glyphicon-book"></span>&nbsp;My Posts</div>
+        <div style="min-height: 365px">
+            <div style="padding: 10px; background-color: #fcf9f9;">
+                <span>Total Posts</span>&nbsp;<span class="badge">@TotalPost</span>
+            </div>
+            <div style="min-height: 300px">
+                <table class="table table-condensed">
+                    <tr class="warning" style="font-weight:bold">
+                        <th>
+                            <div class="display-label">
+                                Title
+                            </div>
+                        </th>
+                        <th>
+                            <div class="display-label">
+                                Product Images
+                            </div>
+                        </th>
+                        <th>
+                            <div class="display-label">
+                                Status
+                            </div>
+                        </th>
+                        <th style="text-align: center">
+                            <div class="display-label">
+                                Action
+                            </div>
+                        </th>
+                        <td>
+                            <div class="display-label">
+                            </div>
+                        </td>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="display-label">
+                                    @Html.ActionLink(item.Title, "UserPostDetails", new { postid = item.Id }, new { style="color:#6297eb;text-decoration:none" })
+                                </div>
+                            </td>
+                            <td>
+                                <div class="display-label">
+                                    <img src="@item.Image1" height="30" width="50" alt="img1" style="background-color:wheat" />
+                                    <img src="@item.Image2" height="30" width="50" alt="img2" style="background-color:wheat"/>
+                                    <img src="@item.Image3" height="30" width="50" alt="img3" style="background-color:wheat"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="display-label">
+                                    @if (item.IsFeatured)
+                                    {
+                                        <span>Feature Ads.</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Normal Ads.</span>
+                                    }
+                                    (
+                                        @if (item.Status == "active" && !item.IsHide)
+                                        {
+                                            <span style="color: green;" class="glyphicon glyphicon-ok-circle" title="active post"></span>
+                                        }
+                                        else if (item.Status == "pending" && !item.IsHide)
+                                        {
+                                            <span style="color: red;" class="glyphicon glyphicon-refresh" title="pending post"></span>
+                                        }
+                                        else if (item.Status == "sold" && item.IsHide)
+                                        {
+                                            <span style="color: goldenrod;" class="glyphicon glyphicon-remove-circle" title="hidden post"></span>
+                                        }
+                                    )
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <div class="display-label pull-right">
+                                    <a href="/User/UserPostEdit/@item.Id" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> &nbsp;&nbsp; 
+                                  <button id="btnDelete" value="@item.Id" class="btn btn-danger btn-xs" onclick="deleteProduct(this)" ><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                    @if (item.IsHide)
+                                    {
+                                        <button id="btnUnSold" value="@item.Id" class="btn btn-warning btn-xs" onclick="UnsoldProduct(this)" style="width:50px;" >UnSold</button>
+                                        
+                                    }
+                                    else
+                                    {
+                                        if (item.Status == "pending")
+                                        {
+                                        <a href="/User/Sold/@item.Id" class="btn btn-success btn-xs disabled" style="width:50px;">Sold</a>                                        
+                                        }
+                                        else
+                                        {
+                                        <button id="btnSold" value="@item.Id" class="btn btn-success btn-xs" onclick="soldProduct(this)" style="width:50px;" >Sold</button>
+                                        }
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div style="font-size: small; color: dodgerblue; margin: 10px 10px 20px 10px;">
+                <span class="glyphicon glyphicon-info-sign"></span>
+                We have configured sold button for you to get rid of unnecessary phone calls after your product had sold out.
+                Press <span class="label label-success">Sold</span> button to hide your product and get rid of unnecessery phone calls.
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function deleteProduct(btn) {
+        bootbox.confirm("Are you sure want to delete this product ?", function (result) {
+            if (result) {
+                var id = $(btn).val();
+                $.ajax({
+                    url: '/User/DeletePost',
+                    data: { id: id },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    async: false,
+                    success: function (data) {
+                        if (data == true) {
+                            $(btn).closest("td").parent("tr").remove();
+                        }
+                        else {
+                            alert("Data could not be deleted.");
+                        }
+                    }
+                });
+            }
+        });
+
+    };
+
+    function soldProduct(btn) {        
+        bootbox.confirm("Are you sure want to mark this product as Sold ?", function (result) {
+            if (result) {
+                var id = $(btn).val();
+                $.ajax({
+                    url: '/User/SoldPost',
+                    data: { id: id },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    async: false,
+                    success: function (data) {
+                        if (data == true) {                            
+                            $(btn).hide();
+                            
+                        }
+                        else {
+                            alert("This product can't be Hide");
+                        }
+                    }
+                });
+            }
+        });
+
+    };
+
+    function UnsoldProduct(btn) {
+        bootbox.confirm("Are you sure want to mark this product as Sold ?", function (result) {
+            if (result) {
+                var id = $(btn).val();
+                $.ajax({
+                    url: '/User/UnSoldPost',
+                    data: { id: id },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    async: false,
+                    success: function (data) {
+                        if (data == true) {
+                            $(btn).hide();                            
+                        }
+                        else {
+                            alert("This Product can't be ReSold");
+                        }
+                    }
+                });
+            }
+        });
+
+    };
+</script>
+
+

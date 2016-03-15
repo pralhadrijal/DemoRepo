@@ -1,0 +1,182 @@
+﻿@model IEnumerable<Shopping.Models.PostAd>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="@Url.Content("~/Content/css/CustomStyle.css")" type="text/css" rel="stylesheet" />
+<div class="header_bottom">
+    <a href="/Home/Search" class="advanceSearch">Advance search >>></a>
+    <div class="search_box">
+        <form action="/Home/Search" method="post">
+            <input type="text" name="search" title="search products by name/category/seller" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit" value="">
+        </form>
+    </div>
+    <div class="clear"></div>
+</div>
+<hr />
+<div class="header_slide">
+    <div class="header_bottom_left">
+        <div class="categories">
+            <ul>
+                <h3>Categories</h3>
+                @foreach (var item in ViewData["Category"] as IEnumerable<Shopping.Models.Category>)
+                {
+                    <li><a href="/Home/SearchByCategory/@item.Id">>&nbsp;@item.Name</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="header_bottom_right">
+      <div class="slider">
+            <div id="slider">
+                <div id="mover">
+                    @foreach(var item in ViewData["OurStore"] as IEnumerable<Shopping.Models.OurStore>)
+                    {
+                    <div class="slide">
+                        <div class="slider-img">
+                            <a href="preview.html">
+                                <img src="@item.Image1" alt="learn more" width="500" height="500" />
+                            </a>                             
+                        </div>
+                        <div class="slider-text">
+                            <h2><span>@item.Title</span><br />
+                                Mark Price: @item.Price
+                            </h2>                            
+                            <h2>UpTo @item.Discount OFF ON MRP</h2>
+                            <div class="features_list">
+                                <h4>@item.Description</h4>
+                            </div>
+                            <a href="preview.html" class="button">Get Details</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    }
+                    
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="main">
+    <div class="content">
+        <div class="content_top">
+            <div class="heading">
+                <h3>Recent Products</h3>
+            </div>
+            <div class="see">
+                <p><a href="/Home/SeeAllAds">See all Products</a></p>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="section group">
+            @foreach (var item in Model)
+            {
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href="preview.html">
+                        @{
+                if (item.Image1 != "../../Content/Images/img1/Anon1.jpg" && item.Image2 != "../../Content/Images/img2/Anon2.jpg" && item.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                {
+                            <img src="@item.Image3" alt="Image Not Available" />
+                }
+                else if (item.Image1 == "../../Content/Images/img1/Anon1.jpg" && item.Image2 != "../../Content/Images/img2/Anon2.jpg" && item.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                {
+                            <img src="@item.Image2" alt="Image Not Available" />
+                }
+                else if (item.Image1 == "../../Content/Images/img1/Anon1.jpg" && item.Image2 != "../../Content/Images/img2/Anon2.jpg" && item.Image3 == "../../Content/Images/img3/Anon3.jpg")
+                {
+                            <img src="@item.Image2" alt="Image Not Available" />
+                }
+                else if (item.Image1 == "../../Content/Images/img1/Anon1.jpg" && item.Image2 == "../../Content/Images/img2/Anon2.jpg" && item.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                {
+                            <img src="@item.Image3" alt="Image Not Available" />
+                }
+                else
+                {
+                            <img src="@item.Image1" alt="Image Not Available" />
+                }
+                        }
+                    </a>
+                    <h2>@item.Title </h2>
+                    <p>
+                        Condition: @item.Condition
+                        <br />
+                        Seller:-@item.UserInfo.UserName
+                    </p>
+                    <div class="price-details">
+                        <div class="price-number">
+                            <p><span class="rupees" style="color: darkorange">Rs. @item.Price</span></p>
+                        </div>
+                        <div class="add-cart">
+                            <h4><a href="/Home/RecentProductDetails/@item.Id">Details</a></h4>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+            }
+        </div>
+
+        <div class="content_bottom">
+            <div class="heading">
+                <h3>Feature Products</h3>
+            </div>
+            <div class="see">
+                <p><a href="/Home/SeeAllFeature">See all Products</a></p>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="section group">
+            @foreach (var item in ViewData["Featured"] as IEnumerable<Shopping.Models.PostAd>)
+            {
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href="preview.html">
+                        @{
+                if (item.Image1 != "../../Content/Images/img1/Anon1.jpg" && item.Image2 != "../../Content/Images/img2/Anon2.jpg" && item.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                {
+                            <img src="@item.Image3" alt="Image Not Available" />
+                }
+                else if (item.Image1 == "../../Content/Images/img1/Anon1.jpg" && item.Image2 != "../../Content/Images/img2/Anon2.jpg" && item.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                {
+                            <img src="@item.Image2" alt="Image Not Available" />
+                }
+                else if (item.Image1 == "../../Content/Images/img1/Anon1.jpg" && item.Image2 != "../../Content/Images/img2/Anon2.jpg" && item.Image3 == "../../Content/Images/img3/Anon3.jpg")
+                {
+                            <img src="@item.Image2" alt="Image Not Available" />
+                }
+                else if (item.Image1 == "../../Content/Images/img1/Anon1.jpg" && item.Image2 == "../../Content/Images/img2/Anon2.jpg" && item.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                {
+                            <img src="@item.Image3" alt="Image Not Available" />
+                }
+                else
+                {
+                            <img src="@item.Image1" alt="Image Not Available" />
+                }
+                        }
+                    </a>
+                    <h2>@item.Title </h2>
+                    <p>
+                        Condition: @item.Condition
+                        <br />
+                        Seller:-@item.UserInfo.UserName
+                    </p>
+                    <div class="price-details">
+                        <div class="price-number">
+                            <p><span class="rupees" style="color: darkorange">Rs. @item.Price</span></p>
+                        </div>
+                        <div class="add-cart">
+                            <h4><a href="/Home/RecentProductDetails/@item.Id">Details</a></h4>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+

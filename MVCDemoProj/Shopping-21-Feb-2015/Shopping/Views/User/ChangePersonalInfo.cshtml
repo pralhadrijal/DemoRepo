@@ -1,0 +1,95 @@
+﻿@model Shopping.Models.UserInfo
+
+@{
+    ViewBag.Title = "ChangePersonalInfo";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    Model.ConfirmPassword = Model.Password;
+}
+<div class="col-md-9 padding-right font-ambleregular-black">
+    <div class="panel panel-primary">
+        <div class="panel-heading bold">
+            <span class="glyphicon glyphicon-user"></span>My Profile
+                    <p class="pull-right" style="font-weight: normal;"><a href="/User/ChangePassword" class="color-white"><span class="glyphicon glyphicon-cog"></span>&nbsp;Change Password</a></p>
+        </div>
+        <div class="panel-body">
+            <p style="text-align: center; font-size: large; font-family: Arial sans-serif; font-stretch: semi-condensed; color: #f20909">Username : @Html.DisplayFor(model => model.UserName)</p>
+            @using (Html.BeginForm("ChangePersonalInfo", "User", new { id = Model.Id }, FormMethod.Post))
+            {@Html.ValidationSummary(true)   
+                @Html.AntiForgeryToken()             
+                <fieldset>
+                    <legend><span style="font-size: large; color: #808080">Personal Information</span>
+
+                        <input class="pull-right btn btn-primary btn-sm" type="submit" value="Save Changes" />
+
+                    </legend>
+                    <table class="table table-condensed" style="font-size: small">
+                        <tr>
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.HiddenFor(model => model.UserName)
+                            @Html.HiddenFor(model => model.Password)
+                            @Html.HiddenFor(model => Model.ConfirmPassword)
+                            @Html.HiddenFor(model => model.Email)
+                            @Html.HiddenFor(model => model.FirstPhone)                            
+                            @Html.HiddenFor(model => model.SecondPhone)
+                            @Html.HiddenFor(model => model.Gender)
+                            @Html.HiddenFor(model => model.JoinDate)
+                            @Html.HiddenFor(model => model.IsActive)
+                            @Html.HiddenFor(model => model.UserRole)
+                        </tr>
+                        <tr>
+                            <td class="col-lg-3">@Html.Label("Full Name:")</td>
+                            <td class="form-group col-sm-9">
+                                <div class="col-sm-8">@Html.TextBoxFor(x => x.FullName, new { @class = "form-control" })</div>
+                                @Html.ValidationMessageFor(model => model.FullName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-3">@Html.Label("Zone:")</td>
+                            <td class="form-group col-sm-9">
+                                <div class="col-sm-8">@Html.TextBoxFor(x => x.Zone, new { @class = "form-control" })</div>
+                                @Html.ValidationMessageFor(model => model.Zone)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-3">@Html.Label("city:")</td>
+                            <td class="form-group col-sm-9">
+                                <div class="col-sm-8">@Html.TextBoxFor(x => x.City, new { @class = "form-control" })</div>
+                                @Html.ValidationMessageFor(model => model.City)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-3">@Html.Label("Local Address:")</td>
+                            <td class="form-group col-sm-9">
+                                <div class="col-sm-8">@Html.TextAreaFor(x => x.LocalAddress, new { @class = "form-control" })</div>
+                                @Html.ValidationMessageFor(model => model.LocalAddress)
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            }
+            <br />
+            <br />
+            <fieldset>
+                <legend><span style="font-size: large; color: #808080">Contact Information</span>
+                    <a class="pull-right btn btn-primary btn-sm" href="/User/ChangeContactInfo/@Session["LoggedUserId"]">Edit</a>
+                </legend>
+                <table class="table table-condensed" style="font-size: small">
+                    <tr>
+                        <td class="col-lg-3">@Html.Label("Email Address:")</td>
+                        <td class="col-lg-9">@Html.DisplayFor(model => model.Email)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-lg-3">@Html.Label("Contact Number:")</td>
+                        <td class="col-lg-9">@Html.DisplayFor(model => model.FirstPhone)
+                            @if (Model.SecondPhone != null)
+                            {
+                                <span>/ @Model.SecondPhone</span> 
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</div>

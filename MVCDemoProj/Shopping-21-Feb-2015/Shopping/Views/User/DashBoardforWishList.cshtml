@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Shopping.Models.WishList>
+
+@{
+    ViewBag.Title = "DashBoardforWishList";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="col-md-9 padding-right">
+    <div class="panel panel-primary">
+        <div class="panel-heading bold">
+            <span class="glyphicon glyphicon-list-alt"></span>&nbsp;Wish List
+        </div>
+        <div class="panel-body">
+            <div style="min-height: 365px">
+                <div style="padding: 10px; background-color: #fcf9f9;">
+                    <span>Total Posts</span>&nbsp;<span class="badge">0</span>
+                </div>
+                <div style="min-height: 300px">
+                    <table class="table table-condensed">
+                        <tr class="warning" style="font-weight:bold">
+                            <th>
+                                <div class="display-label">
+                                    Title
+                                </div>
+                            </th>
+                            <th>
+                                <div class="display-label">
+                                    Product Images
+                                </div>
+                            </th>
+                            <th>
+                                <div class="display-label">
+                                    Seller
+                                </div>
+                            </th>
+                            <th>
+                                <div class="display-label">
+                                   Wished on
+                                </div>
+                            </th>
+                            <th>
+                                <div class="display-label pull-right">
+                                   Take Action
+                                </div>
+                            </th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="display-label">
+                                        <span>@item.PostAd.Title</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="display-label">
+                                        <img src="@item.PostAd.Image1" height="30" width="50" alt="img1" style="background-color:wheat" />
+                                        <img src="@item.PostAd.Image2" height="30" width="50" alt="img2" style="background-color:wheat"/>
+                                        <img src="@item.PostAd.Image3" height="30" width="50" alt="img3" style="background-color:wheat"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="display-label">
+                                        <span>@item.UserInfo.UserName</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="display-label">
+                                        <span>@Html.DisplayFor(x=>item.At)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="display-label pull-right">
+                                        @Html.ActionLink("Details", "UserPostDetails", new { wishid = item.Id }, new { @class = "btn btn-success btn-xs"})                                                                           
+                                        <button value="@item.Id" class="btn btn-danger btn-xs" onclick="deleteWish(this)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function deleteWish(btn) {
+        bootbox.confirm("Are you sure want to delete this product from your WishList ?", function (result) {
+            if (result) {
+                var id = $(btn).val();
+                $.ajax({
+                    url: '/User/DeleteWish',
+                    data: { id: id },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    async: false,
+                    success: function (data) {
+                        if (data == true) {
+                            $(btn).closest("td").parent("tr").remove();
+                        }
+                        else {
+                            alert("Data could not be deleted.");
+                        }
+                    }
+                });
+            }
+        });
+
+    };
+
+</script>
+

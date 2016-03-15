@@ -1,0 +1,388 @@
+﻿@{ 
+    ViewBag.Title = "RecentProductDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var v = ViewData["PostDetails"] as Shopping.Models.PostAd;
+    var wish = ViewData["Wishlist"] as Shopping.Models.WishList;     
+}
+<script src="@Url.Content("js/slides.min.jquery.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/Tab/jquery-2.1.1.js")"></script>
+<script src="@Url.Content("~/Content/Tab/main.js")"></script>
+<script src="@Url.Content("~/Content/Tab/modernizr.js")"></script>
+<link href="@Url.Content("~/Content/Tab/reset.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Tab/tabstyle.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/css/Customcss.css")" rel="stylesheet" />
+<link href="@Url.Content("../../Content/CSS/Style.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" ></script>
+<script>
+    $(document).ready(function () {
+        $("#flip").click(function () {
+            $("#panel").slideToggle("slow");
+        });
+    });
+</script>
+<script>
+    $('#myTab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+</script>
+<div class="main font-ambleregular-black">
+    <div class="content">
+        <div class="content_top" style="height: 135px; margin-bottom: 10px; padding: 0px;">
+            <img src="~/Content/images/NiitAd.gif" />
+            <div class="clear"></div>
+        </div>
+        <div class="section group">
+            <div class="cont-desc span_1_of_2">
+                <div style="height: 20px; background-color: whitesmoke; border-radius: 5px; padding: 10px;">
+                    <p style="font-size: large; color: brown; float: left"><a href="/Home/RelatedProducts/@v.Category.Id">@v.Category.Name</a> > <a href="/Home/RelatedProducts/@v.Product.Id">@v.Product.Name</a></p>
+                </div>
+                <div class="product-details">
+                    <div class="grid images_3_of_2">
+                        <div id="container">
+                            <div id="products_example">
+                                <div id="products">
+                                    <div class="slides_container" style="overflow: hidden; position: relative; display: block;">
+                                        <div class="slides_control" style="position: relative; width: 1098px; height: 274px; left: -366px;">
+                                            <a href="#" target="_blank" style="position: absolute; top: 0px; left: 366px; z-index: 5; display: block;">
+                                                @{
+                                                    if (v.Image1 != "../../Content/Images/img1/Anon1.jpg" && v.Image2 != "../../Content/Images/img2/Anon2.jpg" && v.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                                                    {
+                                                    <img src="@v.Image1" alt=" ">
+                                                    }
+                                                    else if (v.Image1 == "../../Content/Images/img1/Anon1.jpg" && v.Image2 != "../../Content/Images/img2/Anon2.jpg" && v.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                                                    {
+                                                    <img src="@v.Image2" alt=" ">
+                                                    }
+                                                    else if (v.Image1 == "../../Content/Images/img1/Anon1.jpg" && v.Image2 != "../../Content/Images/img2/Anon2.jpg" && v.Image3 == "../../Content/Images/img3/Anon3.jpg")
+                                                    {
+                                                    <img src="@v.Image2" alt=" ">
+                                                    }
+                                                    else if (v.Image1 == "../../Content/Images/img1/Anon1.jpg" && v.Image2 == "../../Content/Images/img2/Anon2.jpg" && v.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                                                    {
+                                                    <img src="@v.Image3" alt=" ">
+                                                    }
+                                                    else
+                                                    {
+                                                    <img src="@v.Image1" alt=" ">
+                                                    }
+                                                }
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="prev">Prev</a><a href="#" class="next">Next</a>
+                                    <ul class="pagination">
+                                        <li class="current"><a href="#0">
+                                            <img src="@v.Image1" alt="Img1" style="height:41px; width:55px;background-color:wheat;border:1px solid wheat;"></a></li>
+                                        <li class=""><a href="#1">
+                                            <img src="@v.Image2" alt="Img2" style="height:41px; width:55px;background-color:wheat;border:1px solid wheat;"></a></li>
+                                        <li class=""><a href="#2">
+                                            <img src="@v.Image3" alt="Img3" style="height:41px; width:55px;background-color:wheat;border:1px solid wheat;"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="desc span_3_of_2">
+                        <h2>@v.Title</h2>
+                        @if (v.Condition == "Brand New")
+                        {
+                            <p style="background-color: #287912; color: white; padding: 2px; width: 80px; border-radius: 5px; text-align: center">@v.Condition</p>
+                        }
+                        else if (v.Condition == "New")
+                        {
+                            <p style="background-color: #ff6a00; color: black; padding: 2px; width: 50px; border-radius: 5px; text-align: center">@v.Condition</p>
+                        }
+                        else
+                        {
+                            <p style="background-color: wheat; color: black; padding: 2px; width: 80px; border-radius: 5px; text-align: center">@v.Condition</p>
+                        }
+                        <div class="price">
+                            <p><span>Rs.@v.Price</span></p>
+                        </div>
+                        <div class="available" style="padding: 10px; padding-top: 0px;">
+                            <table class="table table-hover" style="background-color: white">
+                                <tr>
+                                    <td class="col-sm-4" style="border: none;">Warrenty</td>
+                                    <td class="col-sm-8" style="border: none;">@v.Warrenty</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-4">Price Negotiable</td>
+                                    <td class="col-sm-8">
+                                        @if (v.PriceNegotiable)
+                                        {
+                                            <span>Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span>No</span>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-4">Used For</td>
+                                    <td class="col-sm-8">@v.UsedFor</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-4">Url for Detail</td>
+                                    <td class="col-sm-8">
+                                        @if (v.Url != null)
+                                        {                                            
+                                            @v.Url
+                                        }
+                                        else
+                                        {
+                                            <span>not available</span>
+                                        }
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="share-desc">
+                            <div class="add-cart">
+                                @if (Session["LoggedUserId"] != null && v.UserInfo.Id != Convert.ToInt32(Session["LoggedUserId"]))
+                                {
+                                    if (TempData["AddWish"] != null)
+                                    {
+                                    <h4><a href="/Home/AddtoWishlist/@v.Id" id="addwish">Add to Wishlist</a></h4>
+                                        
+                                    }
+                                    else
+                                    {
+                                    
+                                    <h4><a href="/Home/RemoveWishlist/@wish.Id" id="removewish">Remove from Wishlist</a></h4>                                      
+                                    }
+                                }
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <hr />
+                <div class="cd-tabs">
+                    <nav>
+                        <ul class="cd-tabs-navigation">
+                            <li><a data-content="Seller Details" class="selected" href="#0">Seller Details</a></li>
+                            <li><a data-content="Description" href="#0">Description</a></li>
+                        </ul>
+                    </nav>
+                    <ul class="cd-tabs-content">
+                        <li data-content="Description">
+                            <p>
+                                @v.Description
+                            </p>
+                            <p style="float: right; font-size: small; color: #808080;">Posted on:&nbsp;@Html.DisplayFor(model => v.PostedDate)</p>
+                        </li>
+                        <li data-content="Seller Details" class="selected" style="padding: 10px; padding-top: 0px;">
+                            <table class="table table-hover">
+                                <tr>
+                                    <td class="col-sm-4" style="border-top: none;">Seller</td>
+                                    <td class="col-sm-8" style="border-top: none;">@Html.DisplayFor(model => v.UserInfo.FullName)</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-4">Member Since</td>
+                                    <td class="col-sm-8">@Html.DisplayFor(model => v.UserInfo.JoinDate)</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-4">Email Address</td>
+                                    <td class="col-sm-8">@Html.DisplayFor(model => v.UserInfo.Email)</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-4">Contact No.</td>
+                                    <td class="col-sm-8">
+                                        @Html.DisplayFor(model => v.UserInfo.FirstPhone)
+                                        @if (v.UserInfo.SecondPhone != null)
+                                        {
+                                            <span>/ @v.UserInfo.SecondPhone</span> 
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-4">Address</td>
+                                    <td class="col-sm-8">
+                                        <span>@v.UserInfo.LocalAddress, @v.UserInfo.City, @v.UserInfo.Zone, Nepal</span>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </li>
+                    </ul>
+                    <div style="margin-top: 10px;"></div>
+                    <div id="flip" style="margin-bottom: 10px;">
+                        <div class="btn btn-primary btn-xs pull-right" style="font-size: smaller"><span class="glyphicon glyphicon-list"></span>&nbsp;Get More product from this Seller</div>
+                    </div>
+                    <div id="panel" style="display: none;">
+                        <div>
+                            @if (ViewData["No More Ads"] != null)
+                            {
+                                <span style="color: red; font-size: small; font-family: Arial sans-serif">@ViewData["No More Ads"]</span>
+                            }
+                            else
+                            {  
+                                <div class="section group">
+                                    @foreach (var moreAds in ViewData["MoreAds"] as IEnumerable<Shopping.Models.PostAd>)
+                                    {
+                                        <div class="grid_1_of_4 images_1_of_4" style="height: 140px;">
+                                            <a href="/Home/RecentProductDetails/@moreAds.Id">
+                                                @{
+                                        if (moreAds.Image1 != "../../Content/Images/img1/Anon1.jpg" && moreAds.Image2 != "../../Content/Images/img2/Anon2.jpg" && moreAds.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                                        {                                                
+                                                    <img src="@moreAds.Image1" alt="@moreAds.Product.Name" height="100" width="120"/>
+                                        }
+                                        else if (moreAds.Image1 == "../../Content/Images/img1/Anon1.jpg" && moreAds.Image2 != "../../Content/Images/img2/Anon2.jpg" && moreAds.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                                        {
+                                                    <img src="@moreAds.Image2" alt="@moreAds.Product.Name" height="100" width="120"/>
+                                        }
+                                        else if (moreAds.Image1 == "../../Content/Images/img1/Anon1.jpg" && moreAds.Image2 != "../../Content/Images/img2/Anon2.jpg" && moreAds.Image3 == "../../Content/Images/img3/Anon3.jpg")
+                                        {
+                                                    <img src="@moreAds.Image2" alt="@moreAds.Product.Name" height="100" width="120"/>
+                                        }
+                                        else if (moreAds.Image1 == "../../Content/Images/img1/Anon1.jpg" && moreAds.Image2 == "../../Content/Images/img2/Anon2.jpg" && moreAds.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                                        {
+                                                    <img src="@moreAds.Image3" alt="@moreAds.Product.Name" height="100" width="120"/>
+                                        }
+                                        else
+                                        {
+                                                    <img src="@moreAds.Image1" alt="@moreAds.Product.Name" height="100" width="120"/>
+                                        }
+                                                }
+                                            </a>
+                                            <div class="price" style="border: none">
+                                                <div class="add-cart" style="float: none">
+                                                    <h4><a href="@moreAds.Id">More Details</a></h4>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+                                    }
+                                    <a href="/Home/SeeAllProductByUser/@v.UserInfo.Id" style="float:right;color:dodgerblue">see all >>></a>
+                                </div> 
+                            }
+                        </div>
+                    </div>
+                    <!-- cd-tabs-content -->
+                    @if (ViewData["Related Products"] != null)
+                    {
+
+                        <div class="content_bottom">
+                            <div class="heading">
+                                <h3>Related Products</h3>
+                            </div>
+                            <div class="see">
+                                <p><a href="/Home/RelatedProducts/@v.ProductId">All Related Products</a></p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        
+                        <div class="section group">
+                            @foreach (var i in ViewData["Related Products"] as IEnumerable<Shopping.Models.PostAd>)
+                            {
+                                <div class="grid_1_of_4 images_1_of_4" style="height: 140px;">
+                                    <a href="/Home/RecentProductDetails/@i.Id">
+                                        @{
+                                if (i.Image1 != "../../Content/Images/img1/Anon1.jpg" && i.Image2 != "../../Content/Images/img2/Anon2.jpg" && i.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                                {
+                                            <img src="@i.Image1" alt="@i.Product.Name" height="100" width="110"/>
+                                }
+                                else if (i.Image1 == "../../Content/Images/img1/Anon1.jpg" && i.Image2 != "../../Content/Images/img2/Anon2.jpg" && i.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                                {
+                                            <img src="@i.Image2" alt="@i.Product.Name" height="100" width="110"/>
+                                }
+                                else if (i.Image1 == "../../Content/Images/img1/Anon1.jpg" && i.Image2 != "../../Content/Images/img2/Anon2.jpg" && i.Image3 == "../../Content/Images/img3/Anon3.jpg")
+                                {
+                                            <img src="@i.Image2" alt="@i.Product.Name" height="100" width="110"/>
+                                }
+                                else if (i.Image1 == "../../Content/Images/img1/Anon1.jpg" && i.Image2 == "../../Content/Images/img2/Anon2.jpg" && i.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                                {
+                                            <img src="@i.Image3" alt="@i.Product.Name" height="100" width="110"/>
+                                }
+                                else
+                                {
+                                            <img src="@i.Image1" alt="@i.Product.Name" height="100" width="110"/>
+                                }
+                                        }
+                                    </a>
+                                    <div class="price" style="border: none">
+                                        <div class="add-cart" style="float: none">
+                                            <h4><a href="#">More Details</a></h4>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+                <!-- cd-tabs -->
+            </div>
+            <div class="rightsidebar span_3_of_1">
+                <div class="categories">
+
+                    <h3>Categories</h3>
+
+                </div>
+                <div class="categories">
+                    <ul>
+                        @foreach (var item in ViewData["Category"] as IEnumerable<Shopping.Models.Category>)
+                        {
+                            <li><a href="/Home/SearchByCategory/@item.Id">>&nbsp;@item.Name</a></li>
+                        }
+
+                    </ul>
+                </div>
+                <div class="subscribe">
+                    <div style="height: 20px; background-color: #CD1F25; padding: 10px">
+                        <p style="font-size: large; color: #ffffff;">ADVANCE SEARCH</p>
+                    </div>
+                    <form method="post" action="/Home/AdvanceSearch">
+                        <div class="categories" style="min-height: 100px; padding: 10px; line-height: 25px;">
+                            <span>Category:</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" style="width: 145px;" name="category" /></span><br />
+                            <span>Location:</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<select style="width: 150px;" name="location">
+                                @foreach (var location in ViewData["location"] as IEnumerable<Shopping.Models.UserInfo>)
+                                {
+                                    <option>@location.City</option>
+                                }
+                            </select></span><br />
+                            <span>Condition:</span><span>&nbsp;&nbsp;<select style="width: 150px;" name="condition"><option>New</option>
+                            </select></span><br />
+                            @*<span>Price Betweeen:</span><span><br />
+                                <input type="text" style="width: 100px;" placeholder="From" name="pricefrom" /></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input type="text" style="width: 100px;" placeholder="To" /></span><br />*@
+                            <input type="submit" value="Search" style="margin-left: 190px;" name="priceto" />
+                        </div>
+                    </form>
+                </div>
+                <div class="community-poll">
+                    <div class="categories" style="height: 250px;">
+                        <img src="~/Content/images/souq.jpg" width="270" height="250" />
+                    </div>
+                </div>
+                <div class="community-poll" style="height: 50px;">
+                    <div class="categories" style="height: 100px; margin-top: 20px;">
+                        <div style="height: 20px; background-color: #CD1F25; padding: 10px">
+                            <p style="font-size: large; color: #ffffff;">LIKE US ON</p>
+                        </div>
+                        <div class="fb-like-box" data-href="https://www.facebook.com/Eginfoz?ref=hl" data-width="272" data-height="5" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="true"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $().UItoTop({ easingType: 'easeOutQuart' });
+
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#horizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion           
+            width: 'auto', //auto or any width like 600px
+            fit: true   // 100% fit in a container
+        });
+    });
+</script>

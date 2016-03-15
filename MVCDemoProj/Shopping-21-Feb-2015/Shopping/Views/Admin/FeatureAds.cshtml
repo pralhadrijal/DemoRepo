@@ -1,0 +1,93 @@
+﻿@model PagedList.IPagedList<Shopping.Models.PostAd>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminDashboard.cshtml";
+}
+
+<div class="col-md-9 padding-right">
+    <div class="panel panel-primary">
+        <div class="panel-heading bold"><span class="glyphicon glyphicon-pencil"></span>&nbsp;FeatureAds</div>
+        <div class="panel-body">
+            <div>
+                @foreach (var item in Model)
+                {
+                    <div class="eachdiv" style="height: 260px; width: 188px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; margin-right: 5px; float: left;">
+                        <div class="imgdiv" style="height: 170px; width: 188px; margin-bottom: 10px; margin-right: 5px; float: left;">
+                            @{
+                    if (item.Image1 != "../../Content/Images/img1/Anon1.jpg" && item.Image2 != "../../Content/Images/img2/Anon2.jpg" && item.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                    {
+                                <a href="/Home/RecentProductDetails/@item.Id">
+                                    <img src="@item.Image1"class="img-rounded"  height="170" alt="Photo Not Available" style="padding:5px; width:100%;" /></a>
+                    }
+                    else if (item.Image1 == "../../Content/Images/img1/Anon1.jpg" && item.Image2 != "../../Content/Images/img2/Anon2.jpg" && item.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                    {
+                                <a href="/Home/RecentProductDetails/@item.Id">
+                                    <img src="@item.Image2"class="img-rounded" width="100%" height="170" alt="Photo Not Available" style="padding:5px;" /></a>
+                    }
+                    else if (item.Image1 == "../../Content/Images/img1/Anon1.jpg" && item.Image2 != "../../Content/Images/img2/Anon2.jpg" && item.Image3 == "../../Content/Images/img3/Anon3.jpg")
+                    {
+                                <a href="/Home/RecentProductDetails/@item.Id">
+                                    <img src="@item.Image2"class="img-rounded" width="180" height="170" alt="Photo Not Available" style="padding:0 0 0 0px;" /></a>
+                    }
+                    else if (item.Image1 == "../../Content/Images/img1/Anon1.jpg" && item.Image2 == "../../Content/Images/img2/Anon2.jpg" && item.Image3 != "../../Content/Images/img3/Anon3.jpg")
+                    {
+                                <a href="/Home/RecentProductDetails/@item.Id">
+                                    <img src="@item.Image3"class="img-rounded" width="180" height="170" alt="Photo Not Available" style="padding:0 0 0 0px;" /></a>
+                    }
+                    else
+                    {
+                                <a href="/Home/RecentProductDetails/@item.Id">
+                                    <img src="@item.Image1"class="img-rounded" width="180" height="170" alt="Photo Not Available" style="padding:0 0 0 0px;" /></a>
+                    }
+                            }
+                        </div>
+                        <div class="description" style="height: 40px; width: 180px; float: left;">
+                            <p style="font-family: Tahoma; font-size: 14px; margin-left: 5px;">@item.Title
+                                <br />
+                                <span style="color: #ff6a00">Rs: @item.Price</span>
+                            </p>
+
+                        </div>
+                        <div class="buttons" style="height: 40px; width: 180px; float: left; margin-left: 7px;">                            
+                            <button id="btnDelete" value="@item.Id" class="btn btn-danger btn-sm" onclick="deleteProduct(this)" style="width:80px" ><span class="glyphicon glyphicon-trash"></span>Delete</button>
+                            <a class="btn btn-info btn-sm" href="/Home/RecentProductDetails/@item.Id" style="width:80px">Details</a>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="panel-footer" style="height: 75px">
+            <div id="contentPager" style="float: right;">
+                @Html.PagedListPager(Model, page => Url.Action("FeatureAds", "Admin", new { page }))
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function deleteProduct(btn) {
+        bootbox.confirm("Would you really like to delete this record?", function (result) {
+            if (result) {
+                var id = $(btn).val();
+                $.ajax({
+                    url: '/Admin/DeleteFeatureAd',
+                    data: { id: id },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    async: false,
+                    success: function (data) {
+                        if (data == true) {
+                            $(btn).closest("div").parent("div").remove();
+                        } else {
+                            alert("Data could not be deleted.");
+                        }
+                    }
+                });
+            }
+        });
+
+    };
+</script>

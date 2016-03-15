@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "SearchLayout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("js/slides.min.jquery.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/Tab/jquery-2.1.1.js")"></script>
+<script src="@Url.Content("~/Content/Tab/main.js")"></script>
+<script src="@Url.Content("~/Content/Tab/modernizr.js")"></script>
+<link href="@Url.Content("~/Content/Tab/reset.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Tab/tabstyle.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/css/Customcss.css")" rel="stylesheet" />
+@*<link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" media="all" />*@
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" ></script>
+
+
+
+<div class="main font-ambleregular-black">
+    <div class="content">
+        <div class="content_top" style="height: 100px; margin-bottom: 10px;">
+            <h3>Ad goes here</h3>
+            <div class="clear"></div>
+        </div>
+        <div class="section group">
+            <div class="cont-desc span_1_of_2">
+                <div class="searchDiv">
+                    <div class="Divleft">
+                        @RenderSection("Header", required: false)
+                    </div>
+                    <div class="Divright">
+                        <div class="SearchLayoutBox">
+                            <form action="/Home/Search" method="post">
+                                <input type="text" name="search" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit" value="">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @RenderBody()
+            </div>
+            <div class="rightsidebar span_3_of_1">
+                <div class="categories">
+                    <ul>
+                        <h3>Categories</h3>
+                        @foreach (var item in ViewData["Category"] as IEnumerable<Shopping.Models.Category>)
+                        {
+                            <li><a href="/Home/SearchByCategory/@item.Id">>&nbsp;@item.Name</a></li>
+                        }
+                    </ul>
+                </div>
+                <div class="subscribe">
+                    <div style="height: 20px; background-color: #CD1F25; padding: 10px">
+                        <p style="font-size: large; color: #ffffff;">ADVANCE SEARCH</p>
+                    </div>
+                    <form method="post" action="Home/AdvanceSearch">
+                        <div class="categories" style="min-height: 100px; padding: 10px; line-height: 25px;">
+                            <span>Category:</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" style="width: 145px;" name="category" /></span><br />
+                            <span>Location:</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<select style="width: 150px;" name="location"><option>kathmandu</option>
+                            </select></span><br />
+                            <span>Condition:</span><span>&nbsp;&nbsp;<select style="width: 150px;" name="condition"><option>New</option>
+                            </select></span><br />
+                            <span>Price Betweeen:</span><span><br />
+                                <input type="text" style="width: 100px;" placeholder="From" name="pricefrom" /></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input type="text" style="width: 100px;" placeholder="To" /></span><br />
+                            <input type="submit" value="Search" style="margin-left: 190px;" name="priceto" />
+                        </div>
+                    </form>
+                </div>
+                <div class="community-poll">
+                    <div class="categories" style="height: 250px;">
+                        <img src="~/Content/images/flipkart.jpg" width="270" height="250"/>
+                    </div>
+                </div>
+                <div class="community-poll" style="height: 50px;">
+
+                    <div class="categories" style="height: 100px; margin-top: 20px;">
+                        <div style="height: 20px; background-color: #CD1F25; padding: 10px">
+                            <p style="font-size: large; color: #ffffff;">LIKE US ON</p>
+                        </div>
+                        <div class="fb-like-box" data-href="https://www.facebook.com/Eginfoz?ref=hl" data-width="272" data-height="5" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="true"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $().UItoTop({ easingType: 'easeOutQuart' });
+
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#horizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion           
+            width: 'auto', //auto or any width like 600px
+            fit: true   // 100% fit in a container
+        });
+    });
+</script>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Shopping.Models.UserInfo>
+@{
+    ViewBag.Title = "User Record";
+    Layout = "~/Views/Shared/AdminDashboard.cshtml"; 
+}
+<div class="col-md-9 padding-right">
+    <div class="panel panel-primary">
+        <div class="panel-heading bold"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;User Control</div>
+        <div class="panel-body" style="background-color: white">
+            <div style="padding: 10px;">
+                <span>Total User</span>&nbsp;<span class="badge">@ViewData["CountUser"]</span>
+            </div>
+            <table class="table table-condensed">
+                <tr class="danger">
+                    <th>User Name
+                    </th>
+                    <th>Full Name
+                    </th>
+                    <th>Phone
+                    </th>
+                    <th>Member Since
+                    </th>
+                    <th>Actions
+                    </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="/Admin/UserDetails/@item.Id" style="text-decoration:none;color:dodgerblue">@item.UserName</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(ModelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(ModelItem => item.FirstPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(ModelItem => item.JoinDate)
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-info btn-xs" href="#"><i class="icon-user icon-white"></i>more</a>
+                                <a class=" btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/Admin/UserDetails/@item.Id"><span class="glyphicon glyphicon-user"></span>&nbsp; User Profile</a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-trash"></span>&nbsp; Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>

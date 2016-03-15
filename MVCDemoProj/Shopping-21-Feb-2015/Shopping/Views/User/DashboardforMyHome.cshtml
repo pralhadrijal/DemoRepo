@@ -1,0 +1,52 @@
+﻿@model Shopping.Models.PostAd
+@{
+    ViewBag.Title = "DashBoardforMyPost";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<div class="col-md-9 padding-right">
+    <div class="panel panel-primary">
+        <div class="panel-heading bold">
+            <span class="glyphicon glyphicon-home"></span> My Home
+        </div>
+        <div class="panel-body" style="min-height: 365px; background-color: white">
+            <span class="glyphicon glyphicon-thumbs-up" style="font-size:large"></span>
+           <strong style="color: #857f7f;font-size:large">&nbsp;Hi @Session["LoggedUserName"], Welcome to your Dashboard</strong><br />
+            
+            <div class="col-md-12" style="margin-top: 30px">
+                <div class="col-md-3">
+                    <div class="col-md-11" style="height: 150px; background-color: #F4F4F4; border-radius: 5px;">
+                        <div style="margin-top: 10px; margin-left: 10px; margin-bottom: 10px;">
+                            <img src="~/Content/Images/user.jpg" height="100" width="100" class="img img-circle" />
+                        </div>
+                        <span class="font-ambleregular">User</span>&nbsp;<span class="badge">@ViewData["CountUser"]</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-11" style="height: 150px; background-color: #F4F4F4; border-radius: 5px;">
+                        <div style="margin-top: 10px; margin-left: 10px; margin-bottom: 10px;">
+                            <img src="~/Content/Images/post.jpg" height="100" width="100" class="img img-circle" />
+                        </div>
+                        <span class="font-ambleregular">My Posts</span>&nbsp;<span class="badge">@ViewData["CountMyPosts"]</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-11" style="height: 150px; background-color: #F4F4F4; border-radius: 5px;">
+                        <div style="margin-top: 10px; margin-left: 10px; margin-bottom: 10px;">
+                            <img src="~/Content/Images/message.jpg" height="100" width="100" class="img img-circle" />
+                        </div>
+                        <span class="font-ambleregular">Messages</span>&nbsp;<span class="badge">@ViewData["CountUser"]</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-11" style="height: 150px; background-color: #F4F4F4; border-radius: 5px;">
+                        <div style="margin-top: 10px; margin-left: 10px; margin-bottom: 10px;">
+                            <img src="~/Content/Images/featurepost.jpg" height="100" width="100" class="img img-circle" />
+                        </div>
+                        <span class="font-ambleregular">My Feature</span>&nbsp;<span class="badge">@ViewData["CountUser"]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

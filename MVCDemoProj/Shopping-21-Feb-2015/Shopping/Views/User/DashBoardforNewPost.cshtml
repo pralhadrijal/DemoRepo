@@ -1,0 +1,193 @@
+﻿@model Shopping.Models.PostAd
+@{
+    ViewBag.Title = "DashBoardforNewPost";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    var UserId = Convert.ToInt32(Session["LoggedUserId"]);
+}
+<div class="col-md-9 padding-right font-ambleregular-black">
+    <div class="panel panel-primary">
+        <div class="panel-heading bold">
+            <span class="glyphicon glyphicon-new-window"></span>&nbsp;Post New Ads.
+                    <p class="pull-right" style="font-weight: normal;"><a href="#" style="text-decoration: none; color: wheat">Apply for Feature Ads</a></p>
+        </div>
+        <div class="panel-body" style="background-color: white">
+            @using (Html.BeginForm("DashBoardforNewPost", "User", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", id = "formpostads" }))
+            {
+                @Html.ValidationSummary(true)
+                @Html.AntiForgeryToken()
+                <div style="font-size: 100%; font-family: Arial sans-serif; line-height: 10px; margin-bottom: 5px; padding: 5px; border-bottom: 1px solid wheat;">
+                    <strong style="color: #ff6a00;"><span class="glyphicon glyphicon-info-sign" style="color: #29e121;"></span>&nbsp;Fill up and post this form to make your product sold for free.</strong>
+                </div>
+                <fieldset>
+                    <legend></legend>
+                    <table class="col-lg-12">
+                        <div>
+                            @Html.HiddenFor(model => UserId)
+                        </div>
+                        <tr>
+                            <td class="col-lg-6">
+                                @Html.LabelFor(x => x.Title, new { @style = "font-size:13px; " })
+                                <span class="validationStyle">@Html.ValidationMessageFor(model => model.Title)</span>
+                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = "Enter the title of Ads." })
+                            </td>
+                            <td class="col-lg-6">
+                                @Html.LabelFor(x => x.Warrenty, new { @style = "font-size:13px; " })
+                                <span class="validationStyle">@Html.ValidationMessageFor(model => model.Warrenty)</span>
+                                @Html.TextBoxFor(model => model.Warrenty, new { @class = "form-control", placeholder = "Ex :- Weeks, Months or Years" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-6">
+                                @Html.LabelFor(x => x.Category.Name, new { @style = "font-size:13px; " })
+                                <span class="validationStyle">@Html.ValidationMessageFor(model => model.Category.Name)</span>
+                                @Html.DropDownList("CategoryId", (IEnumerable<SelectListItem>)ViewData["CategoryId"], "Select Category", new { id = "Name", @class = "form-control" })
+                            </td>
+                            <td class="col-lg-6">
+                                @Html.LabelFor(x => x.UsedFor, new { @style = "font-size:13px; " })
+                                <span class="validationStyle">@Html.ValidationMessageFor(model => model.UsedFor)</span>
+                                @Html.TextBoxFor(model => model.UsedFor, new { @class = "form-control", placeholder = "Ex :- Weeks, Months or Years" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-6">
+                                @Html.LabelFor(x => x.Product.Name, new { @style = "font-size:13px; " })
+                                <span class="validationStyle">@Html.ValidationMessageFor(model => model.Product.Name)</span>
+                                @Html.DropDownListFor(model => model.ProductId, new SelectList(Enumerable.Empty<SelectListItem>(), "ProductId", "Product"), "Select a Product", new { id = "Product", @class = "form-control" })
+                            </td>
+                            <td class="col-lg-6">
+                                @Html.LabelFor(x => x.PriceNegotiable, new { @style = "font-size:13px; " })
+                                <span class="validationStyle">@Html.ValidationMessageFor(model => model.PriceNegotiable)</span>
+                                <table>
+                                    <tr>
+                                        <td class="col-sm-6">
+                                            @Html.RadioButtonFor(x => x.PriceNegotiable, "true", new { id = "Yes" })
+                                            @Html.Label("Yes", "Allow", new { @style = "font-size:12px; color:grey;" })
+                                        </td>
+                                        <td class="col-sm-6">
+                                            @Html.RadioButtonFor(x => x.PriceNegotiable, "false", new { id = "No" })
+                                            @Html.Label("No", "Unallow", new { @style = "font-size:12px; color:grey;" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-6">
+                                <div>
+                                    @Html.LabelFor(x => x.Price, new { @style = "font-size:13px; " })
+                                    <span class="validationStyle">@Html.ValidationMessageFor(model => model.Price)</span>
+                                    <div class="input-group  col-lg-12">
+                                        <span class="input-group-addon">Rs.</span>
+                                        @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+                                    </div>
+                                    <div>
+                                        @Html.LabelFor(x => x.Condition, new { @style = "font-size:13px; " })
+                                        <span class="validationStyle">@Html.ValidationMessageFor(model => model.Condition)</span>
+                                        @Html.DropDownListFor(model => model.Condition, new SelectList(new[] { "New", "Brand New", "Like New", "Not New" }), "Choose Condition", new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                @Html.LabelFor(x => x.Url, new { @style = "font-size:13px; " }) <span style="color: green; font-size: small">(no need to mention,if not available)</span>
+                                <span class="validationStyle">@Html.ValidationMessageFor(model => model.Url)</span>
+                                @Html.TextBoxFor(model => model.Url, new { @class = "form-control", placeholder = "Ex :- www.something.com" })
+                            </td>
+                            <td class="col-lg-6">
+                                @Html.LabelFor(x => x.Description, new { @style = "font-size:13px; " })
+                                <span class="validationStyle">@Html.ValidationMessageFor(model => model.Description)</span>
+                                @Html.TextAreaFor(model => model.Description, 6, 3, new { @class = "form-control", placeholder = "Mention something more about your Product..." })
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table table-responsive col-lg-12" style="margin-top: 10px;">
+                        <tr style="background-color: whitesmoke">
+                            <td>
+                                @Html.Label("Browse Product Images:") <span style="color: red; font-size: small">(atleast one image is mandatary)</span>
+                            </td>
+                            <td>Images Preview</td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-8">
+                                <input type="file" name="file1" value="image1" />
+                            </td>
+                            <td>
+                                <img src="#" height="30" width="50" alt="img1" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-8">
+                                <input type="file" name="file2" value="image2" />
+                            </td>
+                            <td>
+                                <img src="#" height="30" width="50" alt="img2" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-8">
+                                <input type="file" name="file3" value="image3" />
+                            </td>
+                            <td>
+                                <img src="#" height="30" width="50" alt="img3" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span>@Html.CheckBoxFor(x => x.IsFeatured, new { @class = "check-control",@id="checkme" })</span>                                
+                                <label for="checkme" style="color: #60870a; font-weight:bold">Check to Feature this Ads.</label>
+                                <span style="font-size: small; color: dodgerblue"> (By checking this box you are willing to post your ads. as feature and satisfied with the 
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payment Terms and Conditions.Otherwise left it Unchecked for Normal Ads.)
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="pull-right">
+                                <input type="submit" value="Post Ads. Now !!!" class="btn btn-primary" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            }
+            <div style="color: grey;">
+                <h1 style="font-size: large">Learn Some rules regarding with Ads. Posting.</h1>
+                <ol style="list-style-type: disc; list-style-position: inside; font-size: small; line-height: 20px;">
+                    <li>all the above fields are mandatary except Url for details.</li>
+                    <li>atleast one image of the product is required.</li>
+                    <li>product image must be in .jpg or .jpeg extension with maximum size of 100KB.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Name").change(function () {
+            debugger;
+            var selecteditem = $(this).val();
+            var product = $("#Product");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                data: { "categoryid": selecteditem },
+                url: "/User/GetAllProductByCategory",
+                success: function (data) {
+                    debugger;
+                    product.html('');
+                    $.each(data, function (id, option) {
+                        product.append($('<option></option>').val(option.id).html(option.product));
+                    });
+
+                    debugger;
+                },
+                Error: function (xhr, ajaxoptions, thrownError) {
+
+                    alert('Failed to retrive data');
+                }
+            });
+        });
+    });
+
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,113 @@
+﻿@model Shopping.Models.UserInfo
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="margin-top: 20px; width: 1080px;">
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <span style="font-synthesis: weight">@ViewBag.Message</span>  <a href="/Home/Index" class="btn btn-success">&nbsp; Login Now</a>
+        </div>
+        <hr /> 
+    }
+    <div style="height: 300px; width: 600px; float: left;">
+        <h3 style="color: orange">Why do I need to register?</h3>
+        <hr />
+        <ol style="line-height: 25px; list-style-position: inside; list-style-type: circle; color: grey;">
+            <li>Your own control panel.</li>
+            <li>Add, Edit & Delete Ads.</li>
+            <li>Make your own Wishlist</li>
+            <li>Upload Images for your ad.</li>
+            <li>Change your contact info.</li>
+            <li>Give feedback on other user profile.</li>
+            <li>And Most Important, Post your classified FREE.</li>
+        </ol>
+    </div>
+    <div style="min-height: 300px; width: 450px; float: right">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <h3 style="color: orange"><span style="color: #285e8e;">Register</span> And post your Ads for free</h3>
+            <hr />
+            <div>
+                <span class="validationStyle">@Html.ValidationMessageFor(x => x.UserName)</span>
+                @Html.TextBoxFor(x => x.UserName, new { @class = "register-control", placeholder = "Enter Username"})
+            </div>
+            <br />
+            <div>
+                <span class="validationStyle">@Html.ValidationMessageFor(x => x.Password)</span>
+                @Html.PasswordFor(x => x.Password, new { @class = "register-control", placeholder = "Enter Password" })
+            </div>
+            <br />
+            <div>
+                <span class="validationStyle">@Html.ValidationMessageFor(x => x.ConfirmPassword)</span>
+                @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "register-control", placeholder = "Confirm Password" })
+            </div>
+            <br />
+            <div>
+                <span class="validationStyle">@Html.ValidationMessageFor(x => x.FullName)</span>
+                @Html.TextBoxFor(x => x.FullName, new { @class = "register-control", placeholder = "Enter Full Name" })
+            </div>
+            <br />
+            <div>
+                <span class="validationStyle">@Html.ValidationMessageFor(x => x.Email)</span>
+                @Html.TextBoxFor(x => x.Email, new { @class = "register-control", placeholder = "Enter Email Address" })
+            </div>
+            <br />
+            <div>
+                <span class="validationStyle">@Html.ValidationMessageFor(x => x.FirstPhone)</span>
+                @Html.TextBoxFor(x => x.FirstPhone, new { @class = "register-control", placeholder = "Enter Phone Number" })
+            </div>
+            <br />
+            <div>
+                <div>
+                    &nbsp;<span style="font-size: 15px; font-family: 'ambleregular'; color: #9d9999;">Select your gender</span>
+                    <span class="validationStyle">@Html.ValidationMessageFor(x => x.Gender)</span>
+                </div>
+                <div>
+                    @Html.RadioButtonFor(x => x.Gender, "M", new { id = "M" })
+                    @Html.Label("M", "Male", new { @style = "font-size:13px; color:grey;" })
+
+                    @Html.RadioButtonFor(x => x.Gender, "F", new { id = "F" })
+                    @Html.Label("F", "Female", new { @style = "font-size:13px; color:grey;" })
+
+                    @Html.RadioButtonFor(x => x.Gender, "O", new { id = "O" })
+                    @Html.Label("O", "Other", new { @style = "font-size:13px; color:grey;" })
+                </div>
+            </div>
+            <br />
+            <div>
+                <span class="validationStyle">@Html.ValidationMessageFor(x => x.Zone)</span>
+                @Html.TextBoxFor(x => x.Zone, new { @class = "register-control", placeholder = "Choose your Zone" })
+            </div>
+            <br />
+            <div>
+                <span class="validationStyle">@Html.ValidationMessageFor(x => x.City)</span>
+                @Html.TextBoxFor(x => x.City, new { @class = "register-control", placeholder = "Choose your City" })
+            </div>
+            <br />
+            <div>
+                <span class="validationStyle">@Html.ValidationMessageFor(x => x.LocalAddress)</span>
+                @Html.TextBoxFor(x => x.LocalAddress, new { @class = "register-control", placeholder = "Enter Local Address" })
+            </div>
+            <br />
+            <div style="font-size: small">
+                By clicking Register, you agree to the <a href="#" style="color: blue">Terms and Conditions</a> set out by this site, including our Cookie Use.
+            </div>
+            <br />
+            <div>
+                <input type="submit" value="Register Now !!!" class="btn btn-register btn-block" />
+            </div>
+        }
+    </div>
+    <div style="clear: both"></div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

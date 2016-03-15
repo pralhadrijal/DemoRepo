@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Shopping.Models.PostAd>
+@{
+    ViewBag.Title = "RelatedProducts";
+    Layout = "~/Views/Home/SearchLayout.cshtml";
+}
+
+@section Header{
+All related Products    
+    }
+@foreach (var item in Model)
+{
+    <div class="product-details">
+        <div style="background-color: whitesmoke; height: 120px;">
+            <div class="img1" style="float: left; height: 120px;">
+                @{
+    if (item.Image1 != "../../Content/Images/img1/Anon1.jpg" && item.Image2 != "../../Content/Images/img2/Anon2.jpg" && item.Image3 != "../../Content/Images/img3/Anon3.jpg")
+    {
+                    <img src="@item.Image1" height="100" width="100" style="padding: 10px;" />
+    }
+    else if (item.Image1 == "../../Content/Images/img1/Anon1.jpg" && item.Image2 != "../../Content/Images/img2/Anon2.jpg" && item.Image3 != "../../Content/Images/img3/Anon3.jpg")
+    {
+                    <img src="@item.Image2" height="100" width="100" style="padding: 10px;" />
+    }
+    else if (item.Image1 == "../../Content/Images/img1/Anon1.jpg" && item.Image2 != "../../Content/Images/img2/Anon2.jpg" && item.Image3 == "../../Content/Images/img3/Anon3.jpg")
+    {
+                    <img src="@item.Image2" height="100" width="100" style="padding: 10px;" />
+    }
+    else if (item.Image1 == "../../Content/Images/img1/Anon1.jpg" && item.Image2 == "../../Content/Images/img2/Anon2.jpg" && item.Image3 != "../../Content/Images/img3/Anon3.jpg")
+    {
+                    <img src="@item.Image3" height="100" width="100" style="padding: 10px;" />
+    }
+    else
+    {
+                    <img src="@item.Image1" height="100" width="100" style="padding: 10px;" />
+    }
+                }
+
+            </div>
+            <div class="1bc" style="height: 120px; float: right; width: 600px;">
+                <div class="titledesc" style="height: 50px; float: right; padding-top: 10px;">
+                    @if (@item.Condition == "New")
+                    {
+                        <span class="condition" style="color: #4cff00">@item.Condition</span> 
+                    }
+                    else if (@item.Condition == "Brand New")
+                    {
+                        <span class="condition" style="color: #2472aa;">@item.Condition</span>
+                    }
+                    else
+                    {
+                        <span class="condition" style="color: #723e3e;">@item.Condition</span> 
+                    }
+                    <div class="title" style="padding-left: 10px; font-weight: bold; width: 600px;">
+                        <h3>@item.Title</h3>
+                    </div>
+                    <div class="des" style="padding-right: 5px;margin-top:5px;">
+                        <p style="padding-left: 10px;">@item.Description</p>
+                    </div>
+                </div>
+                <div class="sellerprice" style="height: 40px; margin-top: 10px;">
+                    <span>Seller:-@item.UserInfo.UserName</span>
+                    <br />
+                    <span style="font-size: small; color: #ff6a00;">Rs.@item.Price</span>
+                    <span style="float: right; padding-right: 10px;">
+                        <span class="add-cart">
+                            <h4><a href="/Home/RecentProductDetails/@item.Id">more Details</a></h4>
+                        </span>
+                    </span>
+
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+}
+

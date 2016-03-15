@@ -1,0 +1,130 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_Dashboard</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="@Url.Content("../../Content/CSS/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("../../Content/CSS/Style.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("../../Content/CSS/nivo-slider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("../../Content/default/default.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/css/easy-responsive-tabs.css")" rel="stylesheet"  type="text/css"/>
+    <link href="@Url.Content("~/Content/css/Customcss.css")" rel="stylesheet" />
+
+    <script src="@Url.Content("../../Content/Js/jquery-1.7.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("../../Content/Js/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("../../Content/Js/jquery.nivo.slider.pack.js")" type="text/javascript"></script>
+    <script src="@Url.Content("../../Content/Js/js/jquery.sudoSlider.min.js")"></script>
+    <script src="@Url.Content("../../Content/Js/js/jssor.js")"></script>
+    <script src="@Url.Content("../../Content/Js/js/jssor.slider.js")"></script>
+    <script src="@Url.Content("~/Scripts/ jQuery.unobtrusive - ajax.js")"></script>
+    <script src="@Url.Content("~/Content/js/easyResponsiveTabs.js")"></script>
+   
+    <script src="@Url.Content("~/Content/js/bootbox.min.js")"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="header" style="background-color: #077181;height: 100px;">
+            <div class="container">
+                <div class="logo" style="float: left">
+                    <div class="container">
+                        <img src="~/content/images/logo.png" alt="logo" class="pull-left col-md-3 img-responsive">
+                    </div>
+                </div>                
+                <div style="float:right">
+                    <div class="account_desc">
+                        <div style="margin-left: 90px;">
+                            <ul style="font: Sansation;">
+                                <li><a class="HeaderNav" href="/Admin/AdminLogin">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="container padding-left padding-right">
+            @if (Session["AllImageNull"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    <div style="font-synthesis: weight; text-align: center">
+                        <span style="color: red; font-size: larger">Ads Posting Failed..!!!</span>
+                        @Session["AllImageNull"]
+                    </div>
+                </div>
+                Session["AllImageNull"] = null;
+            }
+            @if (Session["FileExtensionError"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    <div style="font-synthesis: weight; text-align: center">
+                        <span style="color: red; font-size: larger">Ads Posting Failed..!!!</span>
+                        @Session["FileExtensionError"]
+                    </div>
+                </div>
+                Session["FileExtensionError"] = null;
+            }
+            @if (Session["FileSizeError"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    <div style="font-synthesis: weight; text-align: center">
+                        <span style="color: red; font-size: larger">Ads Posting Failed..!!!</span>
+                        @Session["FileSizeError"]
+                    </div>
+                </div>
+                Session["FileSizeError"] = null;
+            }
+            @if (Session["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    <div style="font-synthesis: weight; text-align: center">
+                        <span style="color: orangered; font-size: larger;">Congratulations !!!</span>
+                        @Session["SuccessMessage"]
+                    </div>
+                </div>
+                Session["SuccessMessage"] = null;
+            }
+            <!--left column-->
+            <div class="col-md-3 padding-left">
+                <div class="panel panel-primary">
+                    <div class="panel-heading bold"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Admin Dashboard</div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li style="background-color:whitesmoke;border-radius:5px;"><a href="/Admin/Home" class="font"><span class="glyphicon glyphicon-home"></span>&nbsp;My Home</a></li>
+                            <li style="background-color:whitesmoke;border-radius:5px;"><a href="/Admin/NormalAds" class="font"><span class="glyphicon glyphicon-new-window"></span>&nbsp;Normal Ads</a></li>
+                            <li style="background-color:whitesmoke;border-radius:5px;"><a href="/Admin/FeatureAds" class="font"><span class="glyphicon glyphicon-pencil"></span>&nbsp;
+                                Feature Ads</a>
+                            </li>
+                            <li style="background-color:whitesmoke;border-radius:5px;"><a href="/Admin/Spam/" class="font"><span class="glyphicon glyphicon-user"></span>&nbsp;Spams</a></li>
+                            <li style="background-color:whitesmoke;border-radius:5px;"><a href="/Admin/UserRecord" class="font"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;User Control</a></li>
+                            <li style="background-color:whitesmoke;border-radius:5px;"><a href="/MyMessages/GetAllMessages" class="font"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Message</a></li>
+                            <li style="background-color:whitesmoke;border-radius:5px;"><a href="/ContactList/GetAllContactList" class="font"><span class="glyphicon glyphicon-comment"></span>&nbsp;Feedback</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--Right column-->
+            @RenderBody()
+        </div>
+    </div>
+    <!--section-->
+    <div class="row">
+        <div class="footer">
+            <div class="container">
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

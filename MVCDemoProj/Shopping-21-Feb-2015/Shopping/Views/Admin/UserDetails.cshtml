@@ -1,0 +1,146 @@
+﻿@model Shopping.Models.UserInfo
+
+@{
+    ViewBag.Title = "UserDetails";
+    Layout = "~/Views/Shared/AdminDashboard.cshtml";
+}
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" ></script>
+<script>
+    $(document).ready(function () {
+        $("#flip").click(function () {
+            $("#panel").slideToggle("slow");
+        });
+    });
+</script>
+
+<div class="col-md-9 padding-right">
+    <div class="panel panel-primary">
+        <div class="panel-heading bold">
+            <span class="glyphicon glyphicon-list-alt"></span>&nbsp;User Control            
+        </div>
+        <div class="panel-body" style="background-color: white">
+
+            
+            <span class="pull-right">
+                <span id="flip" class="btn btn-primary btn-sm">Total Ads. Yet (<span style="color: #ffd800">@ViewData["TotalPosts"])</span></span>
+            </span>
+            <div id="panel" style="display: none; padding: 10px;clear:both">
+                <div>
+                    @if (Convert.ToInt32(ViewData["TotalPosts"]) > 0)
+                    {
+                        <table class="table table-condensed">
+                            <tr>
+                                <th>Title</th>
+                                <th>Images</th>
+                                <th>Product</th>
+                                <th>Posted on</th>
+                                <th style="text-align:center">Take Action</th>
+                            </tr>
+                            @foreach (var v in ViewData["User'sPost"] as IEnumerable<Shopping.Models.PostAd>)
+                            {
+                                <tr>
+                                    <td>@v.Title</td>
+                                    <td>
+                                        <img src="@v.Image1" height="20" width="50" />
+                                        <img src="@v.Image2" height="20" width="50" />
+                                        <img src="@v.Image3" height="20" width="50" />
+                                    </td>
+                                    <td>@v.Product.Name</td>
+                                    <td>@Html.DisplayFor(model => v.PostedDate)</td>
+                                    <td class="pull-right">
+                                        <a class="btn btn-danger btn-xs">Delete</a>
+                                        <a class="btn btn-warning btn-xs">Spam</a>
+                                        <a class="btn btn-primary btn-xs">Detail</a>
+                                    </td>
+                                </tr> 
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <span style="color: red">No Post Yet</span>
+                    }
+                </div>
+            </div>
+
+            <table class="table table-hover">
+                <tr>
+                    <td class="formcontrol col-sm-7" colspan="2" style="color: dodgerblue">
+                        @Html.DisplayFor(model => model.UserName)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="formcontrol col-sm-5">Full Name
+                    </td>
+                    <td class="formcontrol col-sm-7">
+                        @Html.DisplayFor(model => model.FullName)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="formcontrol col-sm-5">Member Since
+                    </td>
+                    <td class="formcontrol col-sm-7">
+                        @Html.DisplayFor(model => model.JoinDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="formcontrol col-sm-5">Gender
+                    </td>
+                    <td class="formcontrol col-sm-7">
+                        @if (Model.Gender == "M")
+                        {
+                            <span>Male</span>
+                        }
+                        else if (Model.Gender == "F")
+                        {
+                            <span>Female</span>
+                        }
+                        else
+                        {
+                            <span>Other</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="formcontrol col-sm-5">Email
+                    </td>
+                    <td class="formcontrol col-sm-7">
+                        @Html.DisplayFor(model => model.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="formcontrol col-sm-5">Contact Number
+                    </td>
+                    <td class="formcontrol col-sm-7">
+                        @Html.DisplayFor(model => model.FirstPhone)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="formcontrol col-sm-5">Alternative Number
+                    </td>
+                    <td class="formcontrol col-sm-7">
+                        @if (Model.SecondPhone != null)
+                        {
+                            @Html.DisplayFor(model => model.SecondPhone)
+                        }
+                        else
+                        {
+                            <span>Not Available</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="formcontrol col-sm-5">Address
+                    </td>
+                    <td class="formcontrol col-sm-7">
+                        @Model.LocalAddress, @Model.City, @Model.Zone Zone, Nepal
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="panel-footer" style="height: 70px;">
+            <span class="pull-right">
+                <a href="#" class="btn btn-primary btn-xs">Mark as Spam</a>
+            </span>
+        </div>
+    </div>

@@ -1,0 +1,322 @@
+﻿@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<div class="col-md-9 padding-right">
+    <div class="panel panel-primary">
+        <div class="panel-heading bold">
+            @if (TempData["postid"] != null)
+            {
+               <span><span class="glyphicon glyphicon-book"></span> My Posts > Detail</span>
+            }
+            @if (TempData["wishid"] != null)
+            {
+                 <span><span class="glyphicon glyphicon-list-alt"></span> Wish List > Detail</span>
+            }
+            
+        </div>
+        <div class="panel-body">
+            @if (TempData["postid"] != null)
+            {
+                var ads = ViewBag.Ads as Shopping.Models.PostAd;
+                <div>
+                    <div>
+                        <span class="label label-info" style="font-size: small">Posted Ads. Detail</span>
+                    </div>
+                    <div class="pull-right">
+                        <span style="font-size: small; color: #046767">Posted At :&nbsp;@Html.DisplayFor(x => ads.PostedDate)</span>
+                    </div>
+                    <table class="table table-hover">
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Category</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => ads.Category.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Product</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => ads.Product.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Title</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => ads.Title)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Price</span>
+                            </td>
+                            <td class="col-sm-9">@Html.DisplayFor(model => ads.Price)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Condition</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => ads.Condition)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Warrenty</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => ads.Warrenty)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Used Period</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => ads.UsedFor)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Price Negotiable</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @if (ads.PriceNegotiable)
+                                {
+                                    <span>Allow</span> 
+                                }
+                                else
+                                {
+                                    <span>Unallow</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Url for Detail</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @if (ads.Url == null)
+                                {
+                                    <span>Not Available</span> 
+                                }
+                                else
+                                {
+                                    <span>
+                                        @Html.DisplayFor(model => ads.Url)
+                                    </span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Description</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => ads.Description)
+                            </td>
+                        </tr>
+                    </table>
+                    <span class="label label-info" style="font-size: small">Product Images Gallery</span>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>
+                                <img src="@ads.Image1"class="img-rounded" width="180" height="170" alt="Img1 Not Available" style="padding:0 0 0 0px;border:1px solid black;background-color:wheat" /></td>
+                            <td>
+                                <img src="@ads.Image2"class="img-rounded" width="180" height="170" alt="Img2 Not Available" style="padding:0 0 0 0px;border:1px solid black;background-color:wheat" /></td>
+                            <td>
+                                <img src="@ads.Image3"class="img-rounded" width="180" height="170" alt="Img3 Not Available" style="padding:0 0 0 0px;border:1px solid black;background-color:wheat" /></td>
+                        </tr>
+                    </table>
+                </div>
+            }
+
+            @if (TempData["wishid"] != null)
+            {
+                var wish = ViewBag.wish as Shopping.Models.WishList;                
+                <div>
+                    <div>
+                        <span class="label label-info" style="font-size: small">Posted Ads. Detail</span>
+                    </div>
+                    <div class="pull-right">
+                        <span style="font-size: small; color: #046767">Posted At :&nbsp;@Html.DisplayFor(x => wish.PostAd.PostedDate)</span>
+                    </div>
+                    <table class="table table-hover">
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Category</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => wish.PostAd.Category.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Product</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => wish.PostAd.Product.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Title</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => wish.PostAd.Title)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Price</span>
+                            </td>
+                            <td class="col-sm-9">@Html.DisplayFor(model => wish.PostAd.Price)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Condition</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => wish.PostAd.Condition)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Warrenty</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => wish.PostAd.Warrenty)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Used Period</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => wish.PostAd.UsedFor)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Price Negotiable</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @if (wish.PostAd.PriceNegotiable)
+                                {
+                                    <span>Allow</span> 
+                                }
+                                else
+                                {
+                                    <span>Unallow</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Url for Detail</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @if (wish.PostAd.Url == null)
+                                {
+                                    <span>Not Available</span> 
+                                }
+                                else
+                                {
+                                    <span>
+                                        @Html.DisplayFor(model => wish.PostAd.Url)
+                                    </span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Description</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => wish.PostAd.Description)
+                            </td>
+                        </tr>
+                    </table>
+                    <span class="label label-info" style="font-size: small">Product Images Gallery</span>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>
+                                <img src="@wish.PostAd.Image1"class="img-rounded" width="180" height="170" alt="Img1 Not Available" style="padding:0 0 0 0px;border:1px solid black;background-color:wheat" /></td>
+                            <td>
+                                <img src="@wish.PostAd.Image2"class="img-rounded" width="180" height="170" alt="Img2 Not Available" style="padding:0 0 0 0px;border:1px solid black;background-color:wheat" /></td>
+                            <td>
+                                <img src="@wish.PostAd.Image3"class="img-rounded" width="180" height="170" alt="Img3 Not Available" style="padding:0 0 0 0px;border:1px solid black;background-color:wheat" /></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div>
+                    <div style="height:40px;background-color:brown;text-align:center;padding:10px;color:white;font-size:large">
+                        Seller Information
+                    </div>
+                    <table class="table table-hover">
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">FullName</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => wish.UserInfo.FullName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Member Since</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => wish.UserInfo.JoinDate)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Email Address</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => wish.UserInfo.Email)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Contact Number</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @wish.UserInfo.FirstPhone
+                                @if (wish.UserInfo.SecondPhone != null)
+                                {
+                                    <span>, @wish.UserInfo.SecondPhone</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3">
+                                <span style="color: #7c2323">Address</span>
+                            </td>
+                            <td class="col-sm-9">
+                                @Html.DisplayFor(model => wish.UserInfo.LocalAddress), 
+                                        @Html.DisplayFor(model => wish.UserInfo.City),
+                                        @Html.DisplayFor(model => wish.UserInfo.Zone) Zone, Nepal
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

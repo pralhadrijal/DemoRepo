@@ -1,0 +1,83 @@
+﻿@model Shopping.Models.Category
+
+@{
+    ViewBag.Title = "CategoryAndProduct";
+    Layout = "~/Views/Shared/AdminDashboard.cshtml";
+}
+<div class="col-md-9 padding-right">
+    <div class="panel panel-danger">
+        <div class="panel-heading bold">
+            <span class="glyphicon glyphicon-list-alt"></span>&nbsp;User Records
+            <div class="pull-right" style="text-align: center">
+                <span class="badge">@ViewData["CountProducts"]</span>&nbsp;<span class="label label-info">Products</span>  out of 
+            <span class="badge">@ViewData["CountCategories"]</span>&nbsp;<span class="label label-info">Categories</span>
+            </div>
+        </div>
+        <div class="row" style="padding: 10px;">
+            <div style="background-color: #f7eeee; padding: 10px; height: 50px" class="form-group col-md-5">
+                <div class="form-group col-md-12">
+                    @Html.DropDownList("CategoryId", (IEnumerable<SelectListItem>)ViewData["CategoryId"], "Select Previous Category", new { id = "Category", @class = "form-control" })
+                </div>
+            </div>
+            @using (Html.BeginForm("CategoryAndProduct","Admin",FormMethod.Post))
+            {
+                <div style="background-color: whitesmoke; padding: 10px; height: 50px" class="form-group col-md-7">
+                    <div class="form-group col-md-10">
+                        @Html.TextBoxFor(model => model.Name, new { placeholder = "enter new category", @class = "form-control", @style = "border-radius:5px;height:30px;" })
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input class="btn btn-success btn-sm" value="Add" type="submit" />
+                    </div>
+                </div>
+            }
+        </div>
+        <div style="margin: 5px">
+            <table class="table table-hover">
+                <tr>
+                    <th class="form-group col-sm-6">Products</th>
+                    <th class="form-group col-sm-6">Action</th>
+                </tr>
+                @foreach (var v in new SelectList(Enumerable.Empty<SelectListItem>(), "ProductId", "Product"))
+                {
+                    <tr class="col-sm-6">
+                        <th>@v.Selected</th>
+                        <th>Action</th>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Category").change(function () {
+            debugger;
+            var selecteditem = $(this).val();
+            var product = $("#Product");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                data: { "categoryid": selecteditem },
+                url: "/User/GetAllProductByCategory",
+                success: function (data) {
+                    debugger;
+                    product.html('');
+                    $.each(data, function (id, option) {
+                        product.append($('<option></option>').val(option.id).html(option.product));
+                    });
+
+                    debugger;
+                },
+                Error: function (xhr, ajaxoptions, thrownError) {
+
+                    alert('Failed to retrive data');
+                }
+            });
+        });
+    });
+
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
